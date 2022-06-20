@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="BackendERP">
-		<class>erp.jpa.Admin</class>
-		<class>erp.jpa.Customer</class>
-		<class>erp.jpa.Order</class>
-		<class>erp.jpa.OrderItem</class>
-		<class>erp.jpa.OrderStatus</class>
-		<class>erp.jpa.Product</class>
-		<class>erp.jpa.ProductCategory</class>
-		<class>erp.jpa.ProductManufacturer</class>
-		<class>erp.jpa.ProductReview</class>
-		<class>erp.jpa.ProductStatus</class>
+		<class>erp.model.Admin</class>
+		<class>erp.model.Customer</class>
+		<class>erp.model.Order</class>
+		<class>erp.model.OrderItem</class>
+		<class>erp.model.OrderStatus</class>
+		<class>erp.model.Product</class>
+		<class>erp.model.ProductCategory</class>
+		<class>erp.model.ProductManufacturer</class>
+		<class>erp.model.ProductReview</class>
+		<class>erp.model.ProductStatus</class>
 	</persistence-unit>
 </persistence>

@@ -1,16 +1,18 @@
 package erp.repository;
 
-import java.util.Collection;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import erp.jpa.Customer;
+import erp.model.Customer;
 
-
+@Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 
-	Collection<Customer> findByCustomerFirstNameContainingIgnoreCase(@Param("customerFirstName") String customerFirstName);
-	
-	Collection<Customer> findByCustomerLastNameContainingIgnoreCase(@Param("customerLastName") String customerLastName);
+	 @Query(value = "SELECT * FROM customers c WHERE c.customerid = :customerId ", nativeQuery = true)
+	 Customer findCustomerById(Integer customerId);
+	 
+	 @Query(value = "SELECT * FROM customers c WHERE c.customerusername = :customerUserName", nativeQuery = true)
+	 Customer findCustomerByUserName(String customerUserName);
+	 
 }

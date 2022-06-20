@@ -1,15 +1,18 @@
 package erp.repository;
 
-import java.util.Collection;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import erp.jpa.Admin;
+import erp.model.Admin;
 
+@Repository
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
-	Collection<Admin> findByAdminFirstNameContainingIgnoreCase(@Param("adminFirstName") String adminFirstName);
-	
-	Collection<Admin> findByAdminLastNameContainingIgnoreCase(@Param("adminLastName") String adminLastName);
+	 @Query(value = "SELECT * FROM admins a WHERE a.adminid = :adminId ", nativeQuery = true)
+	 Admin findAdminById(Integer adminId);
+	 
+	 @Query(value = "SELECT * FROM admins a WHERE a.adminusername = :adminUserName", nativeQuery = true)
+	 Admin findAdminByUserName(String adminUserName);
+	 
 }
