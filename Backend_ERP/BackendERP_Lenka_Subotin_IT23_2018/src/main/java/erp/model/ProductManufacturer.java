@@ -20,7 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="productManufacturer")
+@Table(name="productmanufacturer", schema ="public")
 @NamedQuery(name="ProductManufacturer.findAll", query="SELECT p FROM ProductManufacturer p")
 public class ProductManufacturer implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class ProductManufacturer implements Serializable {
 	@NotNull(message = "Product manufacturer country is required field!")
 	private String manufacturerCountry;
 
-	@Column(name = "manufactureremail")
+	@Column(name = "manufactureremail", unique = true)
 	@NotNull(message = "Product manufacturer email is required field!")
 	@Email(message = "Invalid format of the email address!")
 	private String manufacturerEmail;

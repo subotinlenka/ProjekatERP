@@ -21,7 +21,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="orders")
+@Table(name="orders", schema ="public")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -1,6 +1,8 @@
 package erp.controller;
 
-import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,59 +16,70 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import erp.model.Customer;
-import erp.repository.CustomerRepository;
+import erp.dto.CustomerCreateUpdateDto;
+import erp.dto.CustomerDto;
+import erp.service.CustomerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
+@Api(tags = {"CRUD operations and search by criteria for Customer table in the database TennisWebShop"})
 public class CustomerController {
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerService customerService;
 	
+	
+	public CustomerController(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+	
+	private static final String SUCCESS = "Success!";
+
 	@GetMapping("customer")
-	public Collection<Customer> getCustomers() {
-		return customerRepository.findAll();
+    @ApiOperation(value = "Returns the list of all Customers", response = CustomerDto.class)
+	public ResponseEntity<List<CustomerDto>> getCustomers() {
+		return ResponseEntity.ok(customerService.getCustomers());
 	}
 
-	@GetMapping("customer/{customerID}")
-	public Customer getCustomer(@PathVariable("customerID") Integer customerID) {
-		
-		return customerRepository.getById(customerID);
+	@GetMapping("customer/{customerId}")
+	@ApiOperation(value = "Returns Customer by forwarded ID", notes = "Id of the Customer is required.", response = CustomerDto.class)
+	public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("customerId") Integer customerId) throws Exception {
+	
+		return ResponseEntity.ok(customerService.getCustomerById(customerId));
 	}
 	
-	/*@GetMapping("customerName/{customerFirstName}")
-	public Collection<Customer> getCustomerByFirstName(@PathVariable("customerFirstName") String customerFirstName) {
-		return customerRepository.findByCustomerFirstNameContainingIgnoreCase(customerFirstName);
-	}
+	@GetMapping("customer/userName/{customerUserName}")
+	@ApiOperation(value = "Returns Customer by forwarded user name", notes = "User name of the Customer is required.",  response = CustomerDto.class)
+	public ResponseEntity<CustomerDto> getCustomerByUserName(@PathVariable("customerUserName") String customerUserName) throws Exception {
 	
-	@GetMapping("customerLastName/{customerLastName}")
-	public Collection<Customer> getCustomerByLastName(@PathVariable("customerLastName") String customerLastName) {
-		return customerRepository.findByCustomerLastNameContainingIgnoreCase(customerLastName);
-	}*/
+		return ResponseEntity.ok(customerService.getCustomerByUserName(customerUserName));
+	}
 	
 	@PostMapping("customer")
-	public ResponseEntity<Customer> insertCustomer(@RequestBody Customer customer) {
-		if (!customerRepository.existsById(customer.getCustomerId())) {
-			customerRepository.save(customer);
-			return new ResponseEntity<Customer>(HttpStatus.OK); 
-		}
-		return new ResponseEntity<Customer>(HttpStatus.CONFLICT);
+	@ApiOperation(value = "Inserts Customer in the database", notes = "Request body is required!")
+	public ResponseEntity<String> insertCustomer(@Valid @RequestBody CustomerCreateUpdateDto customerCreateDto) {
+
+			customerService.insertCustomer(customerCreateDto);
+			return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("customer")
-	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
-		if (!customerRepository.existsById(customer.getCustomerId()))
-			return new ResponseEntity<Customer>(HttpStatus.CONFLICT);
-		customerRepository.save(customer);
-		return new ResponseEntity<Customer>(HttpStatus.OK);
+	@PutMapping("customer/{customerId}")
+	@ApiOperation(value = "Modifies Customer with forwarded ID", notes = "Request body and Customer Id are required!")
+	public ResponseEntity<String> updateCustomer(@Valid @RequestBody CustomerCreateUpdateDto customerUpdateDto, @PathVariable("customerId") Integer customerId) {
+		
+		customerService.modifyCustomer(customerUpdateDto, customerId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("customer/{customerID}")
-	public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer customerID)  {
-		if (!customerRepository.existsById(customerID))
-			return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
-		customerRepository.deleteById(customerID);
-		return new ResponseEntity<Customer>(HttpStatus.OK);
+	
+	@DeleteMapping("customer/{customerId}")
+	@ApiOperation(value = "Deletes Customer with forwarded ID", notes = "Id of the Customer is required.")
+	public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") Integer customerId) throws Exception {
+		
+		customerService.deleteCustomer(customerId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
+	
 }

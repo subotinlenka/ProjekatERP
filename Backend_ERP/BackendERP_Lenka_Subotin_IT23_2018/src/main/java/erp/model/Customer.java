@@ -3,7 +3,7 @@ package erp.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -23,7 +23,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="customers")
+@Table(name="customers", schema ="public")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,50 +31,51 @@ public class Customer implements Serializable {
 	@Id
 	@SequenceGenerator(name="CUSTOMERS_CUSTOMERID_GENERATOR", sequenceName="CUSTOMERS_SEQ",  allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CUSTOMERS_CUSTOMERID_GENERATOR")
-	@Column(name = "customerid", nullable = false)
+	@Column(name = "customerid")
+	@NotNull
 	private Integer customerID;
 
-	@Column(name = "customeraddress", nullable = false)
-	@NotBlank(message = "Customer address is required field!")
+	@Column(name = "customeraddress")
+	@NotNull(message = "Customer address is required field!")
 	private String customerAddress;
 
-	@Column(name = "customercity", nullable = false)
-	@NotBlank(message = "Customer city is required field!")
+	@Column(name = "customercity")
+	@NotNull(message = "Customer city is required field!")
 	private String customerCity;
 
-	@Column(name = "customercountry", nullable = false)
-	@NotBlank(message = "Customer country is required field!")
+	@Column(name = "customercountry")
+	@NotNull(message = "Customer country is required field!")
 	private String customerCountry;
 
 	@JsonFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name = "customerdateofbirth", nullable = false)
-	@NotBlank(message = "Customer date of birth is required field!")
+	@Column(name = "customerdateofbirth")
+	@NotNull(message = "Customer date of birth is required field!")
 	private Date customerDateOfBirth;
 
-	@Column(name = "customeremail", nullable = false)
-	@NotBlank(message = "Customer email is required field!")
+	@Column(name = "customeremail", unique = true)
+	@NotNull(message = "Customer email is required field!")
 	@Email(message = "Invalid format of the email address!")
 	private String customerEmail;
 
-	@Column(name = "customerfirstname", nullable = false)
-	@NotBlank(message = "Customer first name is required field!")
+	@Column(name = "customerfirstname")
+	@NotNull(message = "Customer first name is required field!")
 	private String customerFirstName;
 
-	@Column(name = "customerlastname", nullable = false)
-	@NotBlank(message = "Customer last name is required field!")
+	@Column(name = "customerlastname")
+	@NotNull(message = "Customer last name is required field!")
 	private String customerLastName;
 
-	@Column(name = "customerpassword", nullable = false)
+	@Column(name = "customerpassword")
 	@Size(min = 8, message = "Password should have at least 8 characters!")
-	@NotBlank(message = "Customer password is required field!")
+	@NotNull(message = "Customer password is required field!")
 	private String customerPassword;
 
 	@Column(name = "customerphonenumber")
 	private String customerPhoneNumber;
 
-	@Column(name = "customerusername", nullable = false)
-	@NotBlank(message = "Customer user name is required field!")
+	@Column(name = "customerusername", unique = true)
+	@NotNull(message = "Customer user name is required field!")
 	private String customerUserName;
 
 	@JsonIgnore

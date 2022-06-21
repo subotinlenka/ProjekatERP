@@ -19,7 +19,7 @@ import java.util.Date;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="productReview")
+@Table(name="productreview", schema ="public")
 @NamedQuery(name="ProductReview.findAll", query="SELECT p FROM ProductReview p")
 public class ProductReview implements Serializable {
 	private static final long serialVersionUID = 1L;

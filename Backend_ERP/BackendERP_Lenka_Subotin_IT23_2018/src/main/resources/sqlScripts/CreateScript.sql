@@ -74,10 +74,10 @@ CREATE TABLE Products(
 	productManufacturerID integer not null,
 	adminID integer not null,
 	CONSTRAINT pk_products PRIMARY KEY(productID),
-	CONSTRAINT fk_productStatus_products FOREIGN KEY(productStatusID) REFERENCES ProductStatus(productStatusID) ON DELETE CASCADE,
-	CONSTRAINT fk_productCategory_products FOREIGN KEY(productCategoryID) REFERENCES ProductCategory(productCategoryID) ON DELETE CASCADE,
-	CONSTRAINT fk_productManufacturer_products FOREIGN KEY(productManufacturerID) REFERENCES ProductManufacturer(productManufacturerID) ON DELETE CASCADE,
-	CONSTRAINT fk_admins_products FOREIGN KEY(adminID) REFERENCES Admins(adminID) ON DELETE CASCADE
+	CONSTRAINT fk_productStatus_products FOREIGN KEY(productStatusID) REFERENCES ProductStatus(productStatusID),
+	CONSTRAINT fk_productCategory_products FOREIGN KEY(productCategoryID) REFERENCES ProductCategory(productCategoryID),
+	CONSTRAINT fk_productManufacturer_products FOREIGN KEY(productManufacturerID) REFERENCES ProductManufacturer(productManufacturerID),
+	CONSTRAINT fk_admins_products FOREIGN KEY(adminID) REFERENCES Admins(adminID) 
 );
 
 CREATE TABLE Customers(
@@ -102,8 +102,8 @@ CREATE TABLE ProductReview(
 	productID integer not null,
 	customerID integer not null,
 	CONSTRAINT pk_productReview PRIMARY KEY(productReviewID),
-	CONSTRAINT fk_products_productReview FOREIGN KEY(productID) REFERENCES Products(productID) ON DELETE CASCADE,
-	CONSTRAINT fk_customers_productReview FOREIGN KEY(customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
+	CONSTRAINT fk_products_productReview FOREIGN KEY(productID) REFERENCES Products(productID),
+	CONSTRAINT fk_customers_productReview FOREIGN KEY(customerID) REFERENCES Customers(customerID)
 );
 
 CREATE TABLE OrderStatus(
@@ -126,8 +126,8 @@ CREATE TABLE Orders(
 	orderStatusID integer not null,
 	customerID integer not null,
 	CONSTRAINT pk_orders PRIMARY KEY(orderID),
-	CONSTRAINT fk_orderStatus_orders FOREIGN KEY(orderStatusID) REFERENCES OrderStatus(orderStatusID) ON DELETE CASCADE,
-	CONSTRAINT fk_customers_orders FOREIGN KEY(customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
+	CONSTRAINT fk_orderStatus_orders FOREIGN KEY(orderStatusID) REFERENCES OrderStatus(orderStatusID),
+	CONSTRAINT fk_customers_orders FOREIGN KEY(customerID) REFERENCES Customers(customerID)
 );
 
 CREATE TABLE OrderItem(
@@ -137,8 +137,8 @@ CREATE TABLE OrderItem(
 	productID integer not null,
 	orderID integer not null,
 	CONSTRAINT pk_orderItem PRIMARY KEY(orderItemID),
-	CONSTRAINT fk_products_orderItem FOREIGN KEY(productID) REFERENCES Products(productID) ON DELETE CASCADE,
-	CONSTRAINT fk_orders_orderItem FOREIGN KEY(orderID) REFERENCES Orders(orderID) ON DELETE CASCADE
+	CONSTRAINT fk_products_orderItem FOREIGN KEY(productID) REFERENCES Products(productID),
+	CONSTRAINT fk_orders_orderItem FOREIGN KEY(orderID) REFERENCES Orders(orderID) 
 );
 
 CREATE SEQUENCE admins_seq INCREMENT 1;

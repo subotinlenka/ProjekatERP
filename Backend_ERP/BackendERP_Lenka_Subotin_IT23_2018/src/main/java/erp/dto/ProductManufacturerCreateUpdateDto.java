@@ -1,5 +1,7 @@
 package erp.dto;
 
+import javax.validation.constraints.Email;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -30,5 +32,6 @@ public class ProductManufacturerCreateUpdateDto {
 	private String manufacturerCountry;
 	
 	@ApiModelProperty(notes = "The email of the Product Manufacturer")
+	@Email(message = "Invalid format of the email address!")
 	private String manufacturerEmail;
 }

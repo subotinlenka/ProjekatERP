@@ -16,7 +16,7 @@ import lombok.ToString;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="orderItem")
+@Table(name="orderitem", schema ="public")
 @NamedQuery(name="OrderItem.findAll", query="SELECT o FROM OrderItem o")
 public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;

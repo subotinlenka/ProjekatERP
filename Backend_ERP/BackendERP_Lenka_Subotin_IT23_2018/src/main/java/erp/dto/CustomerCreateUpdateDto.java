@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -36,6 +38,7 @@ public class CustomerCreateUpdateDto {
 	private String customerPhoneNumber;
 	
 	@ApiModelProperty(notes = "The Customer's email")
+	@Email(message = "Invalid format of the email address!")
 	private String customerEmail;
 
 	@ApiModelProperty(notes = "The Customer's address")
@@ -48,8 +51,9 @@ public class CustomerCreateUpdateDto {
 	private String customerCountry;
 	
 	@ApiModelProperty(notes = "The Customer's user name")
-	private String adminUserName;
+	private String customerUserName;
 	
 	@ApiModelProperty(notes = "The Customer's password")
-	private String adminPassword;
+	@Size(min = 8, message = "Password should have at least 8 characters!")
+	private String customerPassword;
 }

@@ -19,7 +19,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="products")
+@Table(name="products", schema ="public")
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class Product implements Serializable {
 	private Integer productID;
 
 	@Column(name = "discountamount")
-	private float discountAmount;
+	private Float discountAmount;
 
 	@Column(name = "productdescription")
 	private String productDescription;
@@ -101,7 +101,7 @@ public class Product implements Serializable {
 		this.productID = productID;
 	}
 
-	public float getDiscountAmount() {
+	public Float getDiscountAmount() {
 		return this.discountAmount;
 	}
 

@@ -2,7 +2,6 @@ package erp.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -37,8 +36,7 @@ public class AdminDto {
 	private Date adminDateOfBirth;
 
 	@ApiModelProperty(notes = "The Admin's phone number")
-	@Column(name = "customerphonenumber")
-	private String customerPhoneNumber;
+	private String adminPhoneNumber;
 	
 	@ApiModelProperty(notes = "The Admin's email")
 	private String adminEmail;

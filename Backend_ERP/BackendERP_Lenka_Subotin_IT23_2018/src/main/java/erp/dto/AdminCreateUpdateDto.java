@@ -2,9 +2,10 @@ package erp.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -34,10 +35,10 @@ public class AdminCreateUpdateDto {
 	private Date adminDateOfBirth;
 
 	@ApiModelProperty(notes = "The Admin's phone number")
-	@Column(name = "customerphonenumber")
-	private String customerPhoneNumber;
+	private String adminPhoneNumber;
 	
 	@ApiModelProperty(notes = "The Admin's email")
+	@Email(message = "Invalid format of the email address!")
 	private String adminEmail;
 
 	@ApiModelProperty(notes = "The Admin's address")
@@ -53,6 +54,7 @@ public class AdminCreateUpdateDto {
 	private String adminUserName;
 	
 	@ApiModelProperty(notes = "The Admin's password")
+	@Size(min = 8, message = "Password should have at least 8 characters!")
 	private String adminPassword;
 	
 }

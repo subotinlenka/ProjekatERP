@@ -23,7 +23,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="admins")
+@Table(name="admins", schema ="public")
 @NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
 public class Admin implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -53,7 +53,7 @@ public class Admin implements Serializable {
 	@NotNull(message = "Admin date of birth is required field!")
 	private Date adminDateOfBirth;
 
-	@Column(name = "adminemail")
+	@Column(name = "adminemail", unique = true)
 	@NotNull(message = "Admin email is required field!")
 	@Email(message = "Invalid format of the email address!")
 	private String adminEmail;
@@ -74,7 +74,7 @@ public class Admin implements Serializable {
 	@Column(name = "adminphonenumber")
 	private String adminPhoneNumber;
 
-	@Column(name = "adminusername")
+	@Column(name = "adminusername", unique = true)
 	@NotNull(message = "Admin user name is required field!")
 	private String adminUserName;
 

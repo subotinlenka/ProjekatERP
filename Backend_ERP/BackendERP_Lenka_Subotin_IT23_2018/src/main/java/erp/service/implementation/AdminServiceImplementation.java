@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import erp.dto.AdminCreateUpdateDto;
 import erp.dto.AdminDto;
+import erp.exception.BadRequestException;
+import erp.exception.ConflictException;
 import erp.exception.NotFoundException;
 import erp.model.Admin;
 import erp.repository.AdminRepository;
@@ -56,21 +58,80 @@ public class AdminServiceImplementation implements AdminService {
 	
 	@Override
 	public void insertAdmin(AdminCreateUpdateDto adminCreateDto) {
-		// TODO Auto-generated method stub
 		
+		if(adminCreateDto.getAdminFirstName() == null)
+        	throw new BadRequestException("Admin first name is required field!");
+        else if(adminCreateDto.getAdminLastName() == null)
+        	throw new BadRequestException("Admin last name is required field!");
+        else if(adminCreateDto.getAdminDateOfBirth() == null)
+        	throw new BadRequestException("Admin date of birth is required field!");
+        else if(adminCreateDto.getAdminAddress() == null)
+        	throw new BadRequestException("Admin address is required field!");
+        else if(adminCreateDto.getAdminCity() == null)
+        	throw new BadRequestException("Admin city is required field!");
+        else if(adminCreateDto.getAdminCountry() == null)
+        	throw new BadRequestException("Admin country is required field!");
+        else if(adminCreateDto.getAdminEmail() == null)
+        	throw new BadRequestException("Admin email is required field!");
+        else if(adminCreateDto.getAdminUserName() == null)
+        	throw new BadRequestException("Admin user name is required field!");
+        else if(adminCreateDto.getAdminPassword() == null)
+        	throw new BadRequestException("Admin password is required field!");
+		
+		 adminRepository.save(convertCreateUpdateDtoToEntity(adminCreateDto));
 	}
 
 	@Override
 	public void modifyAdmin(AdminCreateUpdateDto adminUpdateDto, Integer adminId) {
-		// TODO Auto-generated method stub
-		
+		Admin admin = adminRepository.findAdminById(adminId);
+        if(admin == null)
+            throw new NotFoundException("Admin with forwarded ID does not exist!");
+        admin.setAdminFirstName(adminUpdateDto.getAdminFirstName());
+        admin.setAdminLastName(adminUpdateDto.getAdminLastName());
+        admin.setAdminDateOfBirth(adminUpdateDto.getAdminDateOfBirth());
+        admin.setAdminPhoneNumber(adminUpdateDto.getAdminPhoneNumber());
+        admin.setAdminAddress(adminUpdateDto.getAdminAddress());
+        admin.setAdminCity(adminUpdateDto.getAdminCity());
+        admin.setAdminCountry(adminUpdateDto.getAdminCountry());
+        admin.setAdminEmail(adminUpdateDto.getAdminEmail());
+        admin.setAdminUserName(adminUpdateDto.getAdminUserName());
+        admin.setAdminPassword(adminUpdateDto.getAdminPassword());
+      
+        if(admin.getAdminFirstName() == null)
+        	throw new BadRequestException("Admin first name is required field!");
+        else if(admin.getAdminLastName() == null)
+        	throw new BadRequestException("Admin last name is required field!");
+        else if(admin.getAdminDateOfBirth() == null)
+        	throw new BadRequestException("Admin date of birth is required field!");
+        else if(admin.getAdminAddress() == null)
+        	throw new BadRequestException("Admin address is required field!");
+        else if(admin.getAdminCity() == null)
+        	throw new BadRequestException("Admin city is required field!");
+        else if(admin.getAdminCountry() == null)
+        	throw new BadRequestException("Admin country is required field!");
+        else if(admin.getAdminEmail() == null)
+        	throw new BadRequestException("Admin email is required field!");
+        else if(admin.getAdminUserName() == null)
+        	throw new BadRequestException("Admin user name is required field!");
+        else if(admin.getAdminPassword() == null)
+        	throw new BadRequestException("Admin password is required field!");
+        
+        adminRepository.save(admin);		
 	}
 
 	@Override
-	public void deleteAdmin(Integer adminId) {
-		// TODO Auto-generated method stub
+	public void deleteAdmin(Integer adminId) throws Exception {
 		
-	}
+        Admin admin = adminRepository.findAdminById(adminId);
+        if (admin != null) {
+        	try {
+        		adminRepository.deleteAdminById(adminId);
+        	}catch(Exception e) {
+        		throw new ConflictException("Admin with forwarded ID is used in other table!");
+        	}
+        }else
+            throw new NotFoundException("Admin with forwarded ID does not exist!");
+    }
 	
 	//Mapping Admin Entity to AdminDto
 	public AdminDto convertEntityToDto(Admin admin) {
@@ -88,14 +149,14 @@ public class AdminServiceImplementation implements AdminService {
 	
 	//Mapping Admin Entity to AdminCreateUpdateDto
 	public AdminCreateUpdateDto convertEntityToCreateUpdateDto(Admin admin) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
 		AdminCreateUpdateDto adminCreateUpdateDto = this.modelMapper.map(admin, AdminCreateUpdateDto.class);
 		return adminCreateUpdateDto;	
 	}
 
 	//Mapping AdminCreateUpdateDto to Admin Entity
 	public Admin convertCreateUpdateDtoToEntity(AdminCreateUpdateDto adminCreateUpdateDto) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
 		Admin admin = this.modelMapper.map(adminCreateUpdateDto, Admin.class);
 		return admin;
 	}

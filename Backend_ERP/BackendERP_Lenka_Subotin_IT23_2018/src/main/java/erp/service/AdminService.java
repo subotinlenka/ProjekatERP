@@ -12,6 +12,5 @@ public interface AdminService {
 	 AdminDto getAdminByAdminUserName(String adminUserName);
 	 void insertAdmin(AdminCreateUpdateDto adminCreateDto);
 	 void modifyAdmin(AdminCreateUpdateDto adminUpdateDto, Integer adminId);
-	 void deleteAdmin(Integer adminId);
-	 
+	 void deleteAdmin(Integer adminId) throws Exception; 
 }

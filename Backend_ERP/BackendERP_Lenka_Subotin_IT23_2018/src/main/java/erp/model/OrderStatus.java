@@ -19,7 +19,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @ToString
 @Entity
-@Table(name="orderStatus")
+@Table(name="orderstatus", schema ="public")
 @NamedQuery(name="OrderStatus.findAll", query="SELECT o FROM OrderStatus o")
 public class OrderStatus implements Serializable {
 	private static final long serialVersionUID = 1L;

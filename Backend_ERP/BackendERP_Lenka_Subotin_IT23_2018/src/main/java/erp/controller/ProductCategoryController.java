@@ -1,6 +1,8 @@
 package erp.controller;
 
-import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,50 +16,53 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import erp.model.ProductCategory;
-import erp.repository.ProductCategoryRepository;
+import erp.dto.ProductCategoryCreateUpdateDto;
+import erp.dto.ProductCategoryDto;
+import erp.service.ProductCategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
+@Api(tags = {"CRUD operations and search by criteria for Product Category table in the database TennisWebShop"})
 public class ProductCategoryController {
 	
 	@Autowired
-	private ProductCategoryRepository productCategoryRepository;
+	private ProductCategoryService categoryService;
 	
-	@GetMapping("productCategory")
-	public Collection<ProductCategory> getProductCategories() {
-		return productCategoryRepository.findAll();
+	private static final String SUCCESS = "Success!";
+	
+	public ProductCategoryController(ProductCategoryService categoryService) {
+		super();
+		this.categoryService = categoryService;
 	}
 
-	@GetMapping("productCategory/{productCategoryID}")
-	public ProductCategory getProductCategory(@PathVariable("productCategoryID") Integer productCategoryID) {
-		
-		return productCategoryRepository.getById(productCategoryID);
+	@GetMapping("productCategory")
+    @ApiOperation(value = "Returns the list of all Product Categories", response = ProductCategoryDto.class)
+	public ResponseEntity<List<ProductCategoryDto>> getProductCategories() {
+		return ResponseEntity.ok(categoryService.getProductCategories());
+	}
+
+	@GetMapping("productCategory/{productCategoryId}")
+	@ApiOperation(value = "Returns Product Category by forwarded ID", notes = "Id of the Product Category is required.", response = ProductCategoryDto.class)
+	public ResponseEntity<ProductCategoryDto> getProductCategoryById(@PathVariable("productCategoryId") Integer productCategoryId) throws Exception {
+	
+		return ResponseEntity.ok(categoryService.getProductCategoryById(productCategoryId));
 	}
 	
-	@PostMapping("productCategory")
-	public ResponseEntity<ProductCategory> insertProductCategory(@RequestBody ProductCategory productCategory) {
-		if (!productCategoryRepository.existsById(productCategory.getProductCategoryId())) {
-			productCategoryRepository.save(productCategory);
-			return new ResponseEntity<ProductCategory>(HttpStatus.OK); 
-		}
-		return new ResponseEntity<ProductCategory>(HttpStatus.CONFLICT);
+	@GetMapping("productCategory/categoryName/{categoryName}")
+	@ApiOperation(value = "Returns Product Category by forwarded category name", notes = "Name of the Product Category is required.",  response = ProductCategoryDto.class)
+	public ResponseEntity<ProductCategoryDto> getProductCategoryByName(@PathVariable("categoryName") String categoryName) throws Exception {
+	
+		return ResponseEntity.ok(categoryService.getProductCategoryByName(categoryName));
 	}
 	
-	@PutMapping("productCategory")
-	public ResponseEntity<ProductCategory> updateProductCategory(@RequestBody ProductCategory productCategory) {
-		if (!productCategoryRepository.existsById(productCategory.getProductCategoryId()))
-			return new ResponseEntity<ProductCategory>(HttpStatus.CONFLICT);
-		productCategoryRepository.save(productCategory);
-		return new ResponseEntity<ProductCategory>(HttpStatus.OK);
-	}
-	
-	@DeleteMapping("productCategory/{productCategoryID}")
-	public ResponseEntity<ProductCategory> deleteProductCategory(@PathVariable Integer productCategoryID)  {
-		if (!productCategoryRepository.existsById(productCategoryID))
-			return new ResponseEntity<ProductCategory>(HttpStatus.NO_CONTENT);
-		productCategoryRepository.deleteById(productCategoryID);
-		return new ResponseEntity<ProductCategory>(HttpStatus.OK);
-	}
+	/*@PostMapping("productCategory")
+	@ApiOperation(value = "Inserts Product Category in the database", notes = "Request body is required!")
+	public ResponseEntity<String> insertProductCategory(@Valid @RequestBody ProductCategoryCreateUpdateDto categoryCreateDto) {
+
+		categoryService.insertProductCategory(categoryCreateDto);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+	}*/
 
 }
