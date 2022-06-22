@@ -2,13 +2,17 @@ package erp.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import erp.model.Order;
 
 @Repository
+@Transactional
 public interface OrderRepository extends JpaRepository<Order, Integer>{
 
 	 @Query(value = "SELECT * FROM orders o WHERE o.orderid = :orderId ", nativeQuery = true)
@@ -22,4 +26,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 
 	 @Query(value = "SELECT * FROM orders o WHERE o.orderpaymenttype = :orderPaymentType", nativeQuery = true)
 	 List<Order> findOrdersByPaymentType(String orderPaymentType);
+	 
+	 @Modifying
+	 @Query(value = "DELETE FROM orders o WHERE o.orderid = :orderId ", nativeQuery = true)
+	 void deleteOrderById(Integer orderId);
 }

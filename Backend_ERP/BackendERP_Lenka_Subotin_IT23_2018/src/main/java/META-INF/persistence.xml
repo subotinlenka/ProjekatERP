@@ -9,7 +9,6 @@
 		<class>erp.model.Product</class>
 		<class>erp.model.ProductCategory</class>
 		<class>erp.model.ProductManufacturer</class>
-		<class>erp.model.ProductReview</class>
 		<class>erp.model.ProductStatus</class>
 	</persistence-unit>
 </persistence>

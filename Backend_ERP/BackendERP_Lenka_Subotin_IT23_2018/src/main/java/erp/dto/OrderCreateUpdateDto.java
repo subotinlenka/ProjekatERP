@@ -27,13 +27,13 @@ public class OrderCreateUpdateDto {
 	private Date orderDate;
 	
 	@ApiModelProperty(notes = "The amount of the Order")
-	private float orderAmount;
+	private Float orderAmount;
 	
 	@ApiModelProperty(notes = "The delivery fee of the Order")
-	private float orderDeliveryFee;
+	private Float orderDeliveryFee;
 	
 	@ApiModelProperty(notes = "The total amount of the Order")
-	private float orderTotalAmount;
+	private Float orderTotalAmount;
 
 	@ApiModelProperty(notes = "The address of the Order")
 	private String orderAddress;

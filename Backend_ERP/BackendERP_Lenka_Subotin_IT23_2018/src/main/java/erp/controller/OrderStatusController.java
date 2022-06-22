@@ -1,6 +1,8 @@
 package erp.controller;
 
-import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,50 +16,68 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import erp.model.OrderStatus;
-import erp.repository.OrderStatusRepository;
+import erp.dto.OrderStatusCreateUpdateDto;
+import erp.dto.OrderStatusDto;
+import erp.service.OrderStatusService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
+@Api(tags = {"CRUD operations and search by criteria for Order Status table in the database TennisWebShop"})
 public class OrderStatusController {
 
 	@Autowired
-	private OrderStatusRepository orderStatusRepository;
+	private OrderStatusService statusService;
 	
-	@GetMapping("orderStatus")
-	public Collection<OrderStatus> getOrderStatuses() {
-		return orderStatusRepository.findAll();
+	private static final String SUCCESS = "Success!";
+	
+	public OrderStatusController(OrderStatusService statusService) {
+		this.statusService = statusService;
 	}
 
-	@GetMapping("orderStatus/{orderStatusID}")
-	public OrderStatus getOrderStatus(@PathVariable("orderStatusID") Integer orderStatusID) {
-		
-		return orderStatusRepository.getById(orderStatusID);
+	@GetMapping("orderStatus")
+    @ApiOperation(value = "Returns the list of all Order Statuses", response = OrderStatusDto.class)
+	public ResponseEntity<List<OrderStatusDto>> getOrderStatuses() {
+		return ResponseEntity.ok(statusService.getOrderStatuses());
+	}
+
+	@GetMapping("orderStatus/{orderStatusId}")
+	@ApiOperation(value = "Returns Order Status by forwarded ID", notes = "Id of the Order Status is required.", response = OrderStatusDto.class)
+	public ResponseEntity<OrderStatusDto> getOrderStatusById(@PathVariable("orderStatusId") Integer orderStatusId) throws Exception {
+	
+		return ResponseEntity.ok(statusService.getOrderStatusById(orderStatusId));
+	}
+	
+	@GetMapping("orderStatus/statusName/{orderStatusName}")
+	@ApiOperation(value = "Returns Order Status by forwarded status name", notes = "Name of the Order Status is required.",  response = OrderStatusDto.class)
+	public ResponseEntity<OrderStatusDto> getOrderStatusByName(@PathVariable("orderStatusName") String orderStatusName) throws Exception {
+	
+		return ResponseEntity.ok(statusService.getOrderStatusByName(orderStatusName));
 	}
 	
 	@PostMapping("orderStatus")
-	public ResponseEntity<OrderStatus> insertOrderStatus(@RequestBody OrderStatus orderStatus) {
-		if (!orderStatusRepository.existsById(orderStatus.getOrderStatusId())) {
-			orderStatusRepository.save(orderStatus);
-			return new ResponseEntity<OrderStatus>(HttpStatus.OK); 
-		}
-		return new ResponseEntity<OrderStatus>(HttpStatus.CONFLICT);
+	@ApiOperation(value = "Inserts Order Status in the database", notes = "Request body is required!")
+	public ResponseEntity<String> insertOrderStatus(@Valid @RequestBody OrderStatusCreateUpdateDto statusCreateDto) {
+
+		statusService.insertOrderStatus(statusCreateDto);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("orderStatus")
-	public ResponseEntity<OrderStatus> updateOrderStatus(@RequestBody OrderStatus orderStatus) {
-		if (!orderStatusRepository.existsById(orderStatus.getOrderStatusId()))
-			return new ResponseEntity<OrderStatus>(HttpStatus.CONFLICT);
-		orderStatusRepository.save(orderStatus);
-		return new ResponseEntity<OrderStatus>(HttpStatus.OK);
+	@PutMapping("orderStatus/{orderStatusId}")
+	@ApiOperation(value = "Modifies Order Status with forwarded ID", notes = "Request body and Order Status Id are required!")
+	public ResponseEntity<String> updateOrderStatus(@Valid @RequestBody OrderStatusCreateUpdateDto statusUpdateDto, @PathVariable("orderStatusId") Integer orderStatusId) {
+		
+		statusService.modifyOrderStatus(statusUpdateDto, orderStatusId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("orderStatus/{orderStatusID}")
-	public ResponseEntity<OrderStatus> deleteOrderStatus(@PathVariable Integer orderStatusID)  {
-		if (!orderStatusRepository.existsById(orderStatusID))
-			return new ResponseEntity<OrderStatus>(HttpStatus.NO_CONTENT);
-		orderStatusRepository.deleteById(orderStatusID);
-		return new ResponseEntity<OrderStatus>(HttpStatus.OK);
+	@DeleteMapping("orderStatus/{orderStatusId}")
+	@ApiOperation(value = "Deletes Order Status with forwarded ID", notes = "Id of the Order Status is required.")
+	public ResponseEntity<String> deleteOrderStatus(@PathVariable("orderStatusId") Integer orderStatusId) throws Exception {
+		
+		statusService.deleteOrderStatus(orderStatusId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
-	
+
 }

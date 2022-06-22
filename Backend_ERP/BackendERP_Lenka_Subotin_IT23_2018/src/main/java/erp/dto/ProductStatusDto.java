@@ -1,5 +1,8 @@
 package erp.dto;
 
+import java.util.List;
+
+import erp.model.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,5 +22,8 @@ public class ProductStatusDto {
 
 	@ApiModelProperty(notes = "The name of the Product Status")
 	private String productStatusName;
+	
+	@ApiModelProperty(notes = "The products which belong to specific Product Status")
+	List<Product> products;
 
 }

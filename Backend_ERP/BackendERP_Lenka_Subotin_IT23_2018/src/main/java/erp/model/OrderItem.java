@@ -34,7 +34,7 @@ public class OrderItem implements Serializable {
 
 	@Column(name = "orderitemtotalprice")
 	@NotNull(message = "Order item total price is required field!")
-	private float orderItemTotalPrice;
+	private Float orderItemTotalPrice;
 
 	//bi-directional many-to-one association to Order
 	@ManyToOne

@@ -83,11 +83,6 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="customer", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
 	private List<Order> orders;
 
-	@JsonIgnore
-	//bi-directional many-to-one association to ProductReview
-	@OneToMany(mappedBy="customer", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
-	private List<ProductReview> productReviews;
-
 	public Customer() {
 	}
 
@@ -199,28 +194,6 @@ public class Customer implements Serializable {
 		order.setCustomer(null);
 
 		return order;
-	}
-
-	public List<ProductReview> getProductReviews() {
-		return this.productReviews;
-	}
-
-	public void setProductReviews(List<ProductReview> productReviews) {
-		this.productReviews = productReviews;
-	}
-
-	public ProductReview addProductReview(ProductReview productReview) {
-		getProductReviews().add(productReview);
-		productReview.setCustomer(this);
-
-		return productReview;
-	}
-
-	public ProductReview removeProductReview(ProductReview productReview) {
-		getProductReviews().remove(productReview);
-		productReview.setCustomer(null);
-
-		return productReview;
 	}
 
 }

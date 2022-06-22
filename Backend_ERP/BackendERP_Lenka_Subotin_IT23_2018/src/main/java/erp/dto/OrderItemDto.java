@@ -23,7 +23,7 @@ public class OrderItemDto {
 	private Integer orderItemQuantity;
 	
 	@ApiModelProperty(notes = "The Order Item total price")
-	private float orderItemTotalPrice;
+	private Float orderItemTotalPrice;
 	
 	@ApiModelProperty("The product related to the Order Item")
 	private Product product;

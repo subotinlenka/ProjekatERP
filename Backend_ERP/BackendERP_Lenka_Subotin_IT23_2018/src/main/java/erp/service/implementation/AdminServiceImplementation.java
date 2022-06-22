@@ -149,14 +149,14 @@ public class AdminServiceImplementation implements AdminService {
 	
 	//Mapping Admin Entity to AdminCreateUpdateDto
 	public AdminCreateUpdateDto convertEntityToCreateUpdateDto(Admin admin) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		AdminCreateUpdateDto adminCreateUpdateDto = this.modelMapper.map(admin, AdminCreateUpdateDto.class);
 		return adminCreateUpdateDto;	
 	}
 
 	//Mapping AdminCreateUpdateDto to Admin Entity
 	public Admin convertCreateUpdateDtoToEntity(AdminCreateUpdateDto adminCreateUpdateDto) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		Admin admin = this.modelMapper.map(adminCreateUpdateDto, Admin.class);
 		return admin;
 	}

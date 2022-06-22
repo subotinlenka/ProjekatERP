@@ -51,7 +51,7 @@ public class Product implements Serializable {
 
 	@Column(name = "productprice")
 	@NotNull(message = "Product price is required field!")
-	private float productPrice;
+	private Float productPrice;
 
 	@Column(name = "productquantity")
 	@NotNull(message = "Product quantity is required field!")
@@ -64,11 +64,6 @@ public class Product implements Serializable {
 	//bi-directional many-to-one association to OrderItem
 	@OneToMany(mappedBy="product", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
 	private List<OrderItem> orderItems;
-
-	@JsonIgnore
-	//bi-directional many-to-one association to ProductReview
-	@OneToMany(mappedBy="product", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
-	private List<ProductReview> productReviews;
 
 	//bi-directional many-to-one association to Admin
 	@ManyToOne
@@ -105,7 +100,7 @@ public class Product implements Serializable {
 		return this.discountAmount;
 	}
 
-	public void setDiscountAmount(float discountAmount) {
+	public void setDiscountAmount(Float discountAmount) {
 		this.discountAmount = discountAmount;
 	}
 
@@ -145,7 +140,7 @@ public class Product implements Serializable {
 		return this.productPrice;
 	}
 
-	public void setProductPrice(float productPrice) {
+	public void setProductPrice(Float productPrice) {
 		this.productPrice = productPrice;
 	}
 
@@ -185,28 +180,6 @@ public class Product implements Serializable {
 		orderItem.setProduct(null);
 
 		return orderItem;
-	}
-
-	public List<ProductReview> getProductReviews() {
-		return this.productReviews;
-	}
-
-	public void setProductReviews(List<ProductReview> productReviews) {
-		this.productReviews = productReviews;
-	}
-
-	public ProductReview addProductReview(ProductReview productReview) {
-		getProductReviews().add(productReview);
-		productReview.setProduct(this);
-
-		return productReview;
-	}
-
-	public ProductReview removeProductReview(ProductReview productReview) {
-		getProductReviews().remove(productReview);
-		productReview.setProduct(null);
-
-		return productReview;
 	}
 
 	public Admin getAdmin() {

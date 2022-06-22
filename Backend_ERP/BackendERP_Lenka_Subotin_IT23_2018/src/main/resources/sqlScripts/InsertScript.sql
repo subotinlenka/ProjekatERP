@@ -31,17 +31,15 @@ VALUES(nextval('productManufacturer_seq'), 'Head', '0113245619', 'Francuska 22',
 INSERT INTO Products
 VALUES(nextval('products_seq'), 'Speed Pro 2022 Tour Racket', 'HEAD Speed Pro 2022 Tour Racket, Head size: 645 cm x cm, String pattern: 18/20, Weight: 310g', '2', 1, 20000, 'https://tennisShop.com/images/headR1.jpg', false, null, 1, 1, 2, 1);
 INSERT INTO Products
-VALUES(nextval('products_seq'), 'Clash Super Tour Racket Bag', 'Wilson Clash Super Tour Racket Bag 15 Pack - Red, Racket compartments: 3, Shoulder strap: 2, Length (mm): 737, Width (mm): 400, Height (mm): 330', null, 1, 12000, 'https://tennisShop.com/images/wilsonBag1.jpg', false, null, 1, 2, 1, 1);
+VALUES(nextval('products_seq'), 'Clash Super Tour Racket Bag', 'Wilson Clash Super Tour Racket Bag 15 Pack - Red, Racket compartments: 3, Shoulder strap: 2, Length (mm): 737, Width (mm): 400, Height (mm): 330', null, 1, 12000, 'https://tennisShop.com/images/wilsonBag1.jpg', false, null, 2, 2, 1, 1);
+INSERT INTO Products
+VALUES(nextval('products_seq'), 'Tour Racket Bag', 'Wilson Tour Racket Bag - Black, Racket compartments: 2, Shoulder strap: 2', null, 1, 12500, 'https://tennisShop.com/images/wilsonBag2.jpg', false, null, 1, 2, 1, 2);
+
 
 INSERT INTO Customers
 VALUES (nextval('customers_seq'), 'Anja', 'Delic', '2000-03-17', '0624532102', 'Petra Drapsina 2', 'Novi Sad', 'Serbia', 'anjadelic@gmail.com', 'delicanja', 'anja0317');
 INSERT INTO Customers
 VALUES (nextval('customers_seq'), 'Ksenija', 'Petrovic', '1999-02-16', '0631244787', 'Kotorska 7', 'Novi Sad', 'Serbia', 'ksenijap99@gmail.com', 'ksenijap99', 'ksenija0216');
-
-INSERT INTO ProductReview
-VALUES (nextval('productReview_seq'), null, '2022-02-02', 1, 1);
-INSERT INTO ProductReview
-VALUES (nextval('productReview_seq'), 'Excellent Wilson tennis bag, very satisfied.', '2022-04-03', 2, 2);
 
 INSERT INTO OrderStatus
 VALUES(nextval('orderStatus_seq'), 'Delivered');

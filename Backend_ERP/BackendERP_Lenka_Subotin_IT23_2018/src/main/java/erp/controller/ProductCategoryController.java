@@ -33,7 +33,6 @@ public class ProductCategoryController {
 	private static final String SUCCESS = "Success!";
 	
 	public ProductCategoryController(ProductCategoryService categoryService) {
-		super();
 		this.categoryService = categoryService;
 	}
 
@@ -57,12 +56,29 @@ public class ProductCategoryController {
 		return ResponseEntity.ok(categoryService.getProductCategoryByName(categoryName));
 	}
 	
-	/*@PostMapping("productCategory")
+	@PostMapping("productCategory")
 	@ApiOperation(value = "Inserts Product Category in the database", notes = "Request body is required!")
 	public ResponseEntity<String> insertProductCategory(@Valid @RequestBody ProductCategoryCreateUpdateDto categoryCreateDto) {
 
 		categoryService.insertProductCategory(categoryCreateDto);
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
-	}*/
+	}
+	
+	@PutMapping("productCategory/{productCategoryId}")
+	@ApiOperation(value = "Modifies Product Category with forwarded ID", notes = "Request body and Product Category Id are required!")
+	public ResponseEntity<String> updateProductCategory(@Valid @RequestBody ProductCategoryCreateUpdateDto categoryUpdateDto, @PathVariable("productCategoryId") Integer productCategoryId) {
+		
+		categoryService.modifyProductCategory(categoryUpdateDto, productCategoryId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("productCategory/{productCategoryId}")
+	@ApiOperation(value = "Deletes Product Category with forwarded ID", notes = "Id of the Product Category is required.")
+	public ResponseEntity<String> deleteProductCategory(@PathVariable("productCategoryId") Integer productCategoryId) throws Exception {
+		
+		categoryService.deleteProductCategory(productCategoryId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+	}
+	
 
 }

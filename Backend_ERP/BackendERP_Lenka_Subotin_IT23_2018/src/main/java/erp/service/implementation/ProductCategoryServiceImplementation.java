@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import erp.dto.ProductCategoryCreateUpdateDto;
 import erp.dto.ProductCategoryDto;
 import erp.exception.BadRequestException;
+import erp.exception.ConflictException;
 import erp.exception.NotFoundException;
-import erp.model.Admin;
 import erp.model.ProductCategory;
 import erp.repository.ProductCategoryRepository;
 import erp.service.ProductCategoryService;
@@ -27,7 +27,6 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
 	private ProductCategoryRepository categoryRepository;
 	
 	public ProductCategoryServiceImplementation(ModelMapper modelMapper, ProductCategoryRepository categoryRepository) {
-		super();
 		this.modelMapper = modelMapper;
 		this.categoryRepository = categoryRepository;
 	}
@@ -68,13 +67,32 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
 
 	@Override
 	public void modifyProductCategory(ProductCategoryCreateUpdateDto categoryCreateDto, Integer productCategoryId) {
-		// TODO Auto-generated method stub
+		
+		ProductCategory category = categoryRepository.findProductCategoryById(productCategoryId);
+        if(category == null)
+            throw new NotFoundException("Product Category with forwarded ID does not exist!");
+        category.setProductCategoryName(categoryCreateDto.getProductCategoryName());
+        
+        if(categoryCreateDto.getProductCategoryName()== null)
+        	throw new BadRequestException("Product Category name is required field!");
+		
+        categoryRepository.save(category);
 		
 	}
 
 	@Override
 	public void deleteProductCategory(Integer productCategoryId) throws Exception {
-		// TODO Auto-generated method stub
+		
+		ProductCategory category = categoryRepository.findProductCategoryById(productCategoryId);
+        if (category != null) {
+        	try {
+        		categoryRepository.deleteProductCategoryById(productCategoryId);
+        	}catch(Exception e) {
+        		throw new ConflictException("Product Category with forwarded ID is used in other table!");
+        	}
+        }
+        else
+            throw new NotFoundException("Product Category with forwarded ID does not exist!");
 		
 	}
 	
@@ -94,14 +112,14 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
 	
 	//Mapping ProductCategory Entity to ProductCategoryCreateUpdateDto
 	public ProductCategoryCreateUpdateDto convertEntityToCreateUpdateDto(ProductCategory category) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		ProductCategoryCreateUpdateDto categoryCreateUpdateDto = this.modelMapper.map(category, ProductCategoryCreateUpdateDto.class);
 		return categoryCreateUpdateDto;	
 	}
 
 	//Mapping ProductCategoryCreateUpdateDto to ProductCategory Entity
 	public ProductCategory convertCreateUpdateDtoToEntity(ProductCategoryCreateUpdateDto categoryCreateUpdateDto) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		ProductCategory category = this.modelMapper.map(categoryCreateUpdateDto, ProductCategory.class);
 		return category;
 	}

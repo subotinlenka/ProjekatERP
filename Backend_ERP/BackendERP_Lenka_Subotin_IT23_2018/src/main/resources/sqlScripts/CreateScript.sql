@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS ProductStatus CASCADE;
 DROP TABLE IF EXISTS ProductManufacturer CASCADE;
 DROP TABLE IF EXISTS Products CASCADE;
 DROP TABLE IF EXISTS Customers CASCADE;
-DROP TABLE IF EXISTS ProductReview CASCADE;
 DROP TABLE IF EXISTS OrderStatus CASCADE;
 DROP TABLE IF EXISTS Orders CASCADE;
 DROP TABLE IF EXISTS OrderItem CASCADE;
@@ -15,7 +14,6 @@ DROP SEQUENCE IF EXISTS productStatus_seq;
 DROP SEQUENCE IF EXISTS productManufacturer_seq;
 DROP SEQUENCE IF EXISTS products_seq;
 DROP SEQUENCE IF EXISTS customers_seq;
-DROP SEQUENCE IF EXISTS productReview_seq;
 DROP SEQUENCE IF EXISTS orderStatus_seq;
 DROP SEQUENCE IF EXISTS orders_seq;
 DROP SEQUENCE IF EXISTS orderItem_seq;
@@ -95,17 +93,6 @@ CREATE TABLE Customers(
 	CONSTRAINT pk_customers PRIMARY KEY(customerID)
 );
 
-CREATE TABLE ProductReview(
-	productReviewID integer not null,
-	productReviewText varchar(300) null,
-	productReviewDate date not null,
-	productID integer not null,
-	customerID integer not null,
-	CONSTRAINT pk_productReview PRIMARY KEY(productReviewID),
-	CONSTRAINT fk_products_productReview FOREIGN KEY(productID) REFERENCES Products(productID),
-	CONSTRAINT fk_customers_productReview FOREIGN KEY(customerID) REFERENCES Customers(customerID)
-);
-
 CREATE TABLE OrderStatus(
 	orderStatusID integer not null,
 	orderStatusName varchar(30) not null,
@@ -147,7 +134,6 @@ CREATE SEQUENCE productStatus_seq INCREMENT 1;
 CREATE SEQUENCE productManufacturer_seq INCREMENT 1;
 CREATE SEQUENCE products_seq INCREMENT 1;
 CREATE SEQUENCE customers_seq INCREMENT 1;
-CREATE SEQUENCE productReview_seq INCREMENT 1;
 CREATE SEQUENCE orderStatus_seq INCREMENT 1;
 CREATE SEQUENCE orders_seq INCREMENT 1;
 CREATE SEQUENCE orderItem_seq INCREMENT 1;

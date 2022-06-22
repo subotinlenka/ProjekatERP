@@ -39,7 +39,7 @@ public class Order implements Serializable {
 
 	@Column(name = "orderamount")
 	@NotNull(message = "Order amount is required field!")
-	private float orderAmount;
+	private Float orderAmount;
 
 	@Column(name = "ordercity")
 	@NotNull(message = "Order city is required field!")
@@ -53,7 +53,7 @@ public class Order implements Serializable {
 
 	@Column(name = "orderdeliveryfee")
 	@NotNull(message = "Order delivery fee is required field!")
-	private float orderDeliveryFee;
+	private Float orderDeliveryFee;
 
 	@Column(name = "orderpaid")
 	@NotNull(message = "Order paid is required field!")
@@ -70,7 +70,7 @@ public class Order implements Serializable {
 
 	@Column(name = "ordertotalamount")
 	@NotNull(message = "Order total amount is required field!")
-	private float orderTotalAmount;
+	private Float orderTotalAmount;
 
 	@JsonIgnore
 	//bi-directional many-to-one association to OrderItem

@@ -1,5 +1,8 @@
 package erp.dto;
 
+import java.util.List;
+
+import erp.model.Order;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,5 +22,8 @@ public class OrderStatusDto {
 
 	@ApiModelProperty(notes = "The name of the Order Status")
 	private String orderStatusName;
+	
+	@ApiModelProperty(notes = "The orders which belong to specific Order Status")
+	List<Order> orders;
 
 }

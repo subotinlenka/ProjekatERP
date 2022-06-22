@@ -34,13 +34,13 @@ public class ProductDto {
 	private Integer productQuantity;
 	
 	@ApiModelProperty(notes = "The Product price")
-	private float productPrice;
+	private Float productPrice;
 	
 	@ApiModelProperty(notes = "The Product does have/ does not have a discount")
 	private Boolean productDiscount;
 	
 	@ApiModelProperty(notes = "The discount amount of the Product")
-	private float discountAmount;
+	private Float discountAmount;
 	
 	@ApiModelProperty(notes = "The Product status")
 	private ProductStatus productStatus;

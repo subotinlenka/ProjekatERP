@@ -112,14 +112,14 @@ public class ProductManufacturerServiceImplementation implements ProductManufact
 	public void deleteProductManufacturer(Integer manufacturerId) throws Exception {
 		
 		ProductManufacturer manufacturer = manufacturerRepository.findProductManufacturerById(manufacturerId);
-        if (manufacturer != null) {
-        	try {
-        		manufacturerRepository.deleteProductManufacturerById(manufacturerId);
-        	}catch(Exception e) {
-        		throw new ConflictException("Product manufacturer with forwarded ID is used in other table!");
-        	}
-        }else
-            throw new NotFoundException("Product manufacturer with forwarded ID does not exist!");
+	    if (manufacturer != null) {
+	        try {
+	        	manufacturerRepository.deleteProductManufacturerById(manufacturerId);
+	        }catch(Exception e) {
+	        	throw new ConflictException("Product Manufacturer with forwarded ID is used in other table!");
+	        }
+	    }else
+	    	throw new NotFoundException("Product Manufacturer with forwarded ID does not exist!");
 		
 	}
 	
@@ -139,14 +139,14 @@ public class ProductManufacturerServiceImplementation implements ProductManufact
 		
 	//Mapping ProductManufacturer Entity to ProductManufacturerCreateUpdateDto
 	public ProductManufacturerCreateUpdateDto convertEntityToCreateUpdateDto(ProductManufacturer manufacturer) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		ProductManufacturerCreateUpdateDto manufacturerCreateUpdateDto = this.modelMapper.map(manufacturer, ProductManufacturerCreateUpdateDto.class);
 		return manufacturerCreateUpdateDto;	
 	}
 	
 	//Mapping ProductManufacturerCreateUpdateDto to ProductManufacturer Entity
 	public ProductManufacturer convertCreateUpdateDtoToEntity(ProductManufacturerCreateUpdateDto manufacturerCreateUpdateDto) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		ProductManufacturer manufacturer = this.modelMapper.map(manufacturerCreateUpdateDto, ProductManufacturer.class);
 		return manufacturer;
 	}

@@ -153,14 +153,14 @@ public class CustomerServiceImplementation implements CustomerService {
 		
 	//Mapping Customer Entity to CustomerCreateUpdateDto
 	public CustomerCreateUpdateDto convertEntityToCreateUpdateDto(Customer customer) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		CustomerCreateUpdateDto customerCreateUpdateDto = this.modelMapper.map(customer, CustomerCreateUpdateDto.class);
 		return customerCreateUpdateDto;	
 	}
 
 	//Mapping CustomerCreateUpdateDto to Customer Entity
 	public Customer convertCreateUpdateDtoToEntity(CustomerCreateUpdateDto customerCreateUpdateDto) {
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE).setAmbiguityIgnored(true);
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setAmbiguityIgnored(true);
 		Customer customer = this.modelMapper.map(customerCreateUpdateDto, Customer.class);
 		return customer;
 	}
