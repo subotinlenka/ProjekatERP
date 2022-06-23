@@ -1,5 +1,7 @@
 package erp.dto;
 
+import javax.validation.constraints.NotNull;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -15,6 +17,7 @@ import lombok.ToString;
 public class ProductCategoryCreateUpdateDto {
 
 	@ApiModelProperty(notes = "The name of the Product Category")
+	@NotNull(message = "Product category name is required field!")
 	private String productCategoryName;
 	
 }

@@ -66,7 +66,7 @@ CREATE TABLE Products(
 	productPrice real not null,
 	productImage varchar(150) not null,
 	productDiscount boolean not null,
-	discountAmount real null,
+	productPriceWithDiscount real null,
 	productStatusID integer not null,
 	productCategoryID integer not null,
 	productManufacturerID integer not null,

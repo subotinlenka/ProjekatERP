@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -75,6 +76,14 @@ public class ProductController {
 
 		productService.insertProduct(productCreateDto);
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("product/{productId}")
+	@ApiOperation(value = "Modifies Product with forwarded ID", notes = "Request body and Product Id are required!")
+	public ResponseEntity<String> updateProduct(@Valid @RequestBody ProductCreateUpdateDto productCreateDto, @PathVariable("productId") Integer productId) {
+		
+		productService.modifyProduct(productCreateDto, productId);
+		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("product/{productId}")

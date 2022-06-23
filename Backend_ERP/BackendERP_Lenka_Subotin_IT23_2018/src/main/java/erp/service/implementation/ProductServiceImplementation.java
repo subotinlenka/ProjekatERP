@@ -101,29 +101,43 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public void insertProduct(ProductCreateUpdateDto productCreateDto) {
+		 
+		 Product product = convertCreateUpdateDtoToEntity(productCreateDto);
 		
-		 Product product = convertCreateUpdateDtoToEntity(productCreateDto); 
-		
-	     ProductCategory productCategory = categoryRepository.findProductCategoryById(productCreateDto.getProductCategoryID());
-	     ProductStatus productStatus = statusRepository.findProductStatusById(productCreateDto.getProductStatusID());
-	     ProductManufacturer manufacturer = manufacturerRepository.findProductManufacturerById(productCreateDto.getProductManufacturerID());
-	     Admin admin = adminRepository.findAdminById(productCreateDto.getAdminID());
-	     
+		 ProductCategory productCategory = categoryRepository.findProductCategoryById(productCreateDto.getProductCategoryID());
+	        if (productCategory == null) {
+	            throw new BadRequestException("The inserted ID of Product Category does not exist!");
+	        }
+		 ProductStatus productStatus = statusRepository.findProductStatusById(productCreateDto.getProductStatusID());
+		    if (productStatus == null) {
+	            throw new BadRequestException("The inserted ID of Product Status does not exist!");
+	        }
+		 ProductManufacturer manufacturer = manufacturerRepository.findProductManufacturerById(productCreateDto.getProductManufacturerID());
+		    if (manufacturer == null) {
+	            throw new BadRequestException("The inserted ID of Product Manufacturer does not exist!");
+	        }
+		 Admin admin = adminRepository.findAdminById(productCreateDto.getAdminID());
+		    if (admin == null) {
+	            throw new BadRequestException("The inserted ID of Admin does not exist!");
+	        }
+
+	     if(productCreateDto.getProductPriceWithDiscount() == null)
+	    	 productCreateDto.setProductPriceWithDiscount(productCreateDto.getProductPrice());
 	     if(productCreateDto.getProductName() == null)
 	    	 throw new BadRequestException("Product name is required field!");
-	     else if(productCreateDto.getProductQuantity() == null)
+	     if(productCreateDto.getProductQuantity() == null)
 	         throw new BadRequestException("Product quantity is required field!");
-	     else if(productCreateDto.getProductPrice() == null)
+	     if(productCreateDto.getProductPrice() == null)
 	    	 throw new BadRequestException("Product price is required field!");
-	     else if(productCreateDto.getProductDiscount() == null)
+	     if(productCreateDto.getProductDiscount() == null)
 	         throw new BadRequestException("Product discount is required field!");
-	     else if(productCategory == null || productStatus == null || manufacturer == null || admin == null)
-	    	 throw new BadRequestException("Product Category, Product Status, Product Manufacturer and Admin can not be null values!");
-	     else if(productCreateDto.getProductPrice() <= 0)
+	     if(productCreateDto.getProductPrice() <= 0)
 	    	 throw new BadRequestException("Product price must be greater than 0!");
-	     else if(productCreateDto.getDiscountAmount() <= 0)
-	    	 throw new BadRequestException("Discount amount of the Product must be greater than 0!");
-	  
+	     if(productCreateDto.getProductPriceWithDiscount() <= 0)
+	    	 throw new BadRequestException("Product price with discount must be greater than 0!");
+	     if(productCreateDto.getProductPrice() < productCreateDto.getProductPriceWithDiscount())
+	    	 throw new BadRequestException("Product price must be greater than price with discount!");
+	     
 	     product.setProductCategory(productCategory);
 	     product.setProductManufacturer(manufacturer);
 	     product.setProductStatus(productStatus);
@@ -131,14 +145,62 @@ public class ProductServiceImplementation implements ProductService {
 	     
 	     productRepository.save(product);
 	     
-	     throw new BadRequestException("Product Manufacturer, Product Status, Product Manufacturer or Admin with forwarded ID does not exist!");
-		
 	}
 
 	@Override
 	public void modifyProduct(ProductCreateUpdateDto productCreateDto, Integer productId) {
 		
-		
+		Product product = productRepository.findProductById(productId);
+        if(product == null)
+            throw new BadRequestException("Product with forwarded ID does not exist!");
+        ProductCategory productCategory = categoryRepository.findProductCategoryById(productCreateDto.getProductCategoryID());
+        if (productCategory == null) {
+            throw new BadRequestException("The inserted ID of Product Category does not exist!");
+        }
+	    ProductStatus productStatus = statusRepository.findProductStatusById(productCreateDto.getProductStatusID());
+	    if (productStatus == null) {
+            throw new BadRequestException("The inserted ID of Product Status does not exist!");
+        }
+	    ProductManufacturer manufacturer = manufacturerRepository.findProductManufacturerById(productCreateDto.getProductManufacturerID());
+	    if (manufacturer == null) {
+            throw new BadRequestException("The inserted ID of Product Manufacturer does not exist!");
+        }
+	    Admin admin = adminRepository.findAdminById(productCreateDto.getAdminID());
+	    if (admin == null) {
+            throw new BadRequestException("The inserted ID of Admin does not exist!");
+        }
+	    
+	     if(productCreateDto.getProductPriceWithDiscount() == null)
+	    	 productCreateDto.setProductPriceWithDiscount(productCreateDto.getProductPrice());
+	     if(productCreateDto.getProductName() == null)
+	    	 throw new BadRequestException("Product name is required field!");
+	     if(productCreateDto.getProductQuantity() == null)
+	         throw new BadRequestException("Product quantity is required field!");
+	     if(productCreateDto.getProductPrice() == null)
+	    	 throw new BadRequestException("Product price is required field!");
+	     if(productCreateDto.getProductDiscount() == null)
+	         throw new BadRequestException("Product discount is required field!");
+	     if(productCreateDto.getProductPrice() <= 0)
+	    	 throw new BadRequestException("Product price must be greater than 0!");
+	     if(productCreateDto.getProductPriceWithDiscount() <= 0)
+	    	 throw new BadRequestException("Product price with discount must be greater than 0!");
+	     if(productCreateDto.getProductPrice() < productCreateDto.getProductPriceWithDiscount())
+	    	 throw new BadRequestException("Product price must be greater than price with discount!");
+	     
+	     product.setProductName(productCreateDto.getProductName());
+	     product.setProductDescription(productCreateDto.getProductDescription());
+	     product.setProductSize(productCreateDto.getProductSize());
+	     product.setProductQuantity(productCreateDto.getProductQuantity());
+	     product.setProductPrice(productCreateDto.getProductPrice());
+	     product.setProductImage(productCreateDto.getProductImage());
+	     product.setProductDiscount(productCreateDto.getProductDiscount());
+	     product.setProductPriceWithDiscount(productCreateDto.getProductPriceWithDiscount());
+	     product.setProductCategory(productCategory);
+		 product.setProductManufacturer(manufacturer);
+		 product.setProductStatus(productStatus);
+		 product.setAdmin(admin);
+		     
+		 productRepository.save(product);
 	}
 
 	@Override

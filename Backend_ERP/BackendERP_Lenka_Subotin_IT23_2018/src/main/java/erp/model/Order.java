@@ -64,7 +64,7 @@ public class Order implements Serializable {
 	@Column(name = "orderpaymentdate")
 	private Date orderPaymentDate;
 
-	@Column(name = "orderpaymenttype")
+	@Column(name = "orderpaymenttype", columnDefinition = "enum('CASH', 'CARD')")
 	@NotNull(message = "Order payment type is required field!")
 	private String orderPaymentType;
 

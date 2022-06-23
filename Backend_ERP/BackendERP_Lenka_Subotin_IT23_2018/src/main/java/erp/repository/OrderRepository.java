@@ -18,13 +18,15 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 	 @Query(value = "SELECT * FROM orders o WHERE o.orderid = :orderId ", nativeQuery = true)
 	 Order findOrderById(Integer orderId);
 
-	 @Query(value = "SELECT * FROM orders o WHERE o.ordercity = :orderCity ", nativeQuery = true)
+	 @Query(value =  "SELECT * FROM orders o WHERE upper(o.ordercity) = :orderCity OR "
+				+ "lower(o.ordercity) = :orderCity OR o.ordercity = :orderCity ", nativeQuery = true)
 	 List<Order> findOrdersByCity(String orderCity);
 	 
-	 @Query(value = "SELECT * FROM orders o WHERE o.ordepaid = :orderPaid", nativeQuery = true)
+	 @Query(value = "SELECT * FROM orders o WHERE o.orderpaid = :orderPaid", nativeQuery = true)
 	 List<Order> findOrdersByPaidOrNot(Boolean orderPaid);
 
-	 @Query(value = "SELECT * FROM orders o WHERE o.orderpaymenttype = :orderPaymentType", nativeQuery = true)
+	 @Query(value = "SELECT * FROM orders o WHERE upper(o.orderpaymenttype) = :orderPaymentType OR "
+	 		+ "	lower(o.orderpaymenttype) = :orderPaymentType OR o.orderpaymenttype = :orderPaymentType", nativeQuery = true)
 	 List<Order> findOrdersByPaymentType(String orderPaymentType);
 	 
 	 @Modifying

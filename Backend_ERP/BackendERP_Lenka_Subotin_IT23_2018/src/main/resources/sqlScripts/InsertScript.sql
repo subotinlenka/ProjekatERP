@@ -48,9 +48,9 @@ VALUES(nextval('orderStatus_seq'), 'In progress');
 
 
 INSERT INTO Orders
-VALUES(nextval('orders_seq'), '2022-04-03', 12000, 200, 12200, 'Petra Drapsina 2', 'Novi Sad', true, 'credit card', '2022-04-03',  2, 1);
+VALUES(nextval('orders_seq'), '2022-04-03', 12000, 200, 12200, 'Petra Drapsina 2', 'Novi Sad', true, 'CARD', '2022-04-03',  2, 1);
 INSERT INTO Orders
-VALUES(nextval('orders_seq'), '2022-02-02', 20000, 200, 20200, 'Kotorska 7', 'Novi Sad', true, 'credit card', '2022-02-02', 2, 2);
+VALUES(nextval('orders_seq'), '2022-02-02', 20000, 200, 20200, 'Kotorska 7', 'Novi Sad', true, 'CARD', '2022-02-02', 2, 2);
 
 INSERT INTO OrderItem
 VALUES(nextval('orderItem_seq'), 1, 12000, 2, 1);

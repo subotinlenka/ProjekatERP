@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.lang.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -31,8 +33,9 @@ public class Product implements Serializable {
 	@NotNull
 	private Integer productID;
 
-	@Column(name = "discountamount")
-	private Float discountAmount;
+	@Column(name = "productpricewithdiscount")
+	@Nullable
+	private Float productPriceWithDiscount;
 
 	@Column(name = "productdescription")
 	private String productDescription;
@@ -96,12 +99,12 @@ public class Product implements Serializable {
 		this.productID = productID;
 	}
 
-	public Float getDiscountAmount() {
-		return this.discountAmount;
+	public Float getProductPriceWithDiscount() {
+		return this.productPriceWithDiscount;
 	}
 
-	public void setDiscountAmount(Float discountAmount) {
-		this.discountAmount = discountAmount;
+	public void setProductPriceWithDiscount(Float productPriceWithDiscount) {
+		this.productPriceWithDiscount = productPriceWithDiscount;
 	}
 
 	public String getProductDescription() {
@@ -136,7 +139,7 @@ public class Product implements Serializable {
 		this.productName = productName;
 	}
 
-	public float getProductPrice() {
+	public Float getProductPrice() {
 		return this.productPrice;
 	}
 
