@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,21 +37,21 @@ public class OrderStatusController {
 		this.statusService = statusService;
 	}
 
-	@GetMapping("orderStatus")
-    @ApiOperation(value = "Returns the list of all Order Statuses", response = OrderStatusDto.class)
+	@GetMapping("orderStatuses")
+    @ApiOperation(value = "Returns the list of all Order Statuses", response = OrderStatusDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderStatusDto>> getOrderStatuses() {
 		return ResponseEntity.ok(statusService.getOrderStatuses());
 	}
 
 	@GetMapping("orderStatus/{orderStatusId}")
-	@ApiOperation(value = "Returns Order Status by forwarded ID", notes = "Id of the Order Status is required.", response = OrderStatusDto.class)
+	@ApiOperation(value = "Returns Order Status by forwarded ID", notes = "Id of the Order Status is required.", response = OrderStatusDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<OrderStatusDto> getOrderStatusById(@PathVariable("orderStatusId") Integer orderStatusId) throws Exception {
 	
 		return ResponseEntity.ok(statusService.getOrderStatusById(orderStatusId));
 	}
 	
 	@GetMapping("orderStatus/statusName/{orderStatusName}")
-	@ApiOperation(value = "Returns Order Status by forwarded status name", notes = "Name of the Order Status is required.",  response = OrderStatusDto.class)
+	@ApiOperation(value = "Returns Order Status by forwarded status name", notes = "Name of the Order Status is required.",  response = OrderStatusDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<OrderStatusDto> getOrderStatusByName(@PathVariable("orderStatusName") String orderStatusName) throws Exception {
 	
 		return ResponseEntity.ok(statusService.getOrderStatusByName(orderStatusName));

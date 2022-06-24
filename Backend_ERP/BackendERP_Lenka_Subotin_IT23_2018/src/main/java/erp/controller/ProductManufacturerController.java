@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,21 +37,21 @@ public class ProductManufacturerController {
 	
 	private static final String SUCCESS = "Success!";
 
-	@GetMapping("productManufacturer")
-	@ApiOperation(value = "Returns the list of all Product Manufacturers", response = ProductManufacturerDto.class)
+	@GetMapping("productManufacturers")
+	@ApiOperation(value = "Returns the list of all Product Manufacturers", response = ProductManufacturerDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductManufacturerDto>> getProductManufacturers() {
 		return ResponseEntity.ok(manufacturerService.getProductManufacturers());
 	}
 
 	@GetMapping("productManufacturer/{manufacturerId}")
-	@ApiOperation(value = "Returns Product Manufacturer by forwarded ID", notes = "Id of the Product Manufacturer is required.", response = ProductManufacturerDto.class)
+	@ApiOperation(value = "Returns Product Manufacturer by forwarded ID", notes = "Id of the Product Manufacturer is required.", response = ProductManufacturerDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductManufacturerDto> getManufacturerById(@PathVariable("manufacturerId") Integer manufacturerId) throws Exception {
 	
 		return ResponseEntity.ok(manufacturerService.getManufacturerById(manufacturerId));
 	}
 	
 	@GetMapping("productManufacturer/manufacturerName/{manufacturerName}")
-	@ApiOperation(value = "Returns Product Manufacturer by forwarded name", notes = "Name of the Product Manufacturer is required.",  response = ProductManufacturerDto.class)
+	@ApiOperation(value = "Returns Product Manufacturer by forwarded name", notes = "Name of the Product Manufacturer is required.",  response = ProductManufacturerDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductManufacturerDto> getManufacturerByName(@PathVariable("manufacturerName") String manufacturerName) throws Exception {
 	
 		return ResponseEntity.ok(manufacturerService.getManufacturerByName(manufacturerName));

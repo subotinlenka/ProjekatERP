@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,21 +37,21 @@ public class ProductStatusController {
 		this.statusService = statusService;
 	}
 
-	@GetMapping("productStatus")
-    @ApiOperation(value = "Returns the list of all Product Statuses", response = ProductStatusDto.class)
+	@GetMapping("productStatuses")
+    @ApiOperation(value = "Returns the list of all Product Statuses", response = ProductStatusDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductStatusDto>> getProductStatuses() {
 		return ResponseEntity.ok(statusService.getProductStatuses());
 	}
 
 	@GetMapping("productStatus/{productStatusId}")
-	@ApiOperation(value = "Returns Product Status by forwarded ID", notes = "Id of the Product Status is required.", response = ProductStatusDto.class)
+	@ApiOperation(value = "Returns Product Status by forwarded ID", notes = "Id of the Product Status is required.", response = ProductStatusDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductStatusDto> getProductStatusById(@PathVariable("productStatusId") Integer productStatusId) throws Exception {
 	
 		return ResponseEntity.ok(statusService.getProductStatusById(productStatusId));
 	}
 	
 	@GetMapping("productStatus/statusName/{statusName}")
-	@ApiOperation(value = "Returns Product Status by forwarded status name", notes = "Name of the Product Status is required.",  response = ProductStatusDto.class)
+	@ApiOperation(value = "Returns Product Status by forwarded status name", notes = "Name of the Product Status is required.",  response = ProductStatusDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductStatusDto> getProductStatusByName(@PathVariable("statusName") String statusName) throws Exception {
 	
 		return ResponseEntity.ok(statusService.getProductStatusByName(statusName));

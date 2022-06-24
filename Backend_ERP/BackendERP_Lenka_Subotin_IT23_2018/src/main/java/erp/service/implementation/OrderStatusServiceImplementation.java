@@ -26,6 +26,11 @@ public class OrderStatusServiceImplementation implements  OrderStatusService {
 	@Autowired
 	private OrderStatusRepository orderStatusRepository;
 	
+	public OrderStatusServiceImplementation(ModelMapper modelMapper, OrderStatusRepository orderStatusRepository) {
+		this.modelMapper = modelMapper;
+		this.orderStatusRepository = orderStatusRepository;
+	}
+
 	@Override
 	public List<OrderStatusDto> getOrderStatuses() {
 		return orderStatusRepository.findAll().stream().map(this::convertEntityToDto).collect(Collectors.toList());

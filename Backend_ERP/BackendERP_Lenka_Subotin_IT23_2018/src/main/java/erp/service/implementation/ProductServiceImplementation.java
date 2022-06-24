@@ -47,6 +47,17 @@ public class ProductServiceImplementation implements ProductService {
 	
 	@Autowired
 	AdminRepository adminRepository;
+	
+	public ProductServiceImplementation(ModelMapper modelMapper, ProductRepository productRepository,
+			ProductStatusRepository statusRepository, ProductCategoryRepository categoryRepository,
+			ProductManufacturerRepository manufacturerRepository, AdminRepository adminRepository) {
+		this.modelMapper = modelMapper;
+		this.productRepository = productRepository;
+		this.statusRepository = statusRepository;
+		this.categoryRepository = categoryRepository;
+		this.manufacturerRepository = manufacturerRepository;
+		this.adminRepository = adminRepository;
+	}
 
 	@Override
 	public List<ProductDto> getProducts() {

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,21 +38,21 @@ public class CustomerController {
 	
 	private static final String SUCCESS = "Success!";
 
-	@GetMapping("customer")
-    @ApiOperation(value = "Returns the list of all Customers", response = CustomerDto.class)
+	@GetMapping("customers")
+    @ApiOperation(value = "Returns the list of all Customers", response = CustomerDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<CustomerDto>> getCustomers() {
 		return ResponseEntity.ok(customerService.getCustomers());
 	}
 
 	@GetMapping("customer/{customerId}")
-	@ApiOperation(value = "Returns Customer by forwarded ID", notes = "Id of the Customer is required.", response = CustomerDto.class)
+	@ApiOperation(value = "Returns Customer by forwarded ID", notes = "Id of the Customer is required.", response = CustomerDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("customerId") Integer customerId) throws Exception {
 	
 		return ResponseEntity.ok(customerService.getCustomerById(customerId));
 	}
 	
 	@GetMapping("customer/userName/{customerUserName}")
-	@ApiOperation(value = "Returns Customer by forwarded user name", notes = "User name of the Customer is required.",  response = CustomerDto.class)
+	@ApiOperation(value = "Returns Customer by forwarded user name", notes = "User name of the Customer is required.",  response = CustomerDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CustomerDto> getCustomerByUserName(@PathVariable("customerUserName") String customerUserName) throws Exception {
 	
 		return ResponseEntity.ok(customerService.getCustomerByUserName(customerUserName));

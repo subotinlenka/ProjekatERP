@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,35 +37,35 @@ public class ProductController {
 		this.productService = productService;
 	}
 
-	@GetMapping("product")
-    @ApiOperation(value = "Returns the list of all Products", response = ProductDto.class)
+	@GetMapping("products")
+    @ApiOperation(value = "Returns the list of all Products", response = ProductDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductDto>> getProducts() {
 		return ResponseEntity.ok(productService.getProducts());
 	}
 
 	@GetMapping("product/{productId}")
-	@ApiOperation(value = "Returns Product by forwarded ID", notes = "Id of the Product is required.", response = ProductDto.class)
+	@ApiOperation(value = "Returns Product by forwarded ID", notes = "Id of the Product is required.", response = ProductDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductDto> getProductById(@PathVariable("productId") Integer productId) throws Exception {
 	
 		return ResponseEntity.ok(productService.getProductById(productId));
 	}
 	
-	@GetMapping("product/category/{productCategoryId}")
-	@ApiOperation(value = "Return Product(s) by forwarded Product Category", notes = "Id of the Product Category is required.")
+	@GetMapping("products/category/{productCategoryId}")
+	@ApiOperation(value = "Return Product(s) by forwarded Product Category", notes = "Id of the Product Category is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable("productCategoryId") Integer productCategoryId) throws Exception {
 	
 		return ResponseEntity.ok(productService.getProductsByCategory(productCategoryId));
 	}
 	
-	@GetMapping("product/status/{productStatusId}")
-	@ApiOperation(value = "Return Product(s) by forwarded Product Status", notes = "Id of the Product Status is required.")
+	@GetMapping("products/status/{productStatusId}")
+	@ApiOperation(value = "Return Product(s) by forwarded Product Status", notes = "Id of the Product Status is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductDto>> getProductsByStatus(@PathVariable("productStatusId") Integer productStatusId) throws Exception {
 	
 		return ResponseEntity.ok(productService.getProductsByStatus(productStatusId));
 	}
 	
-	@GetMapping("product/manufacturer/{manufacturerId}")
-	@ApiOperation(value = "Return Product(s) by forwarded Product Manufacturer", notes = "Id of the Product Manufacturer is required.")
+	@GetMapping("products/manufacturer/{manufacturerId}")
+	@ApiOperation(value = "Return Product(s) by forwarded Product Manufacturer", notes = "Id of the Product Manufacturer is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductDto>> getProductsByManufacturer(@PathVariable("manufacturerId") Integer manufacturerId) throws Exception {
 	
 		return ResponseEntity.ok(productService.getProductsByManufacturer(manufacturerId));

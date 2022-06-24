@@ -6,7 +6,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,21 +39,21 @@ public class AdminController {
     
     private static final String SUCCESS = "Success!";
 
-	@GetMapping("admin")
-    @ApiOperation(value = "Returns the list of all Admins", response = AdminDto.class)
+	@GetMapping("admins")
+    @ApiOperation(value = "Returns the list of all Admins", response = AdminDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AdminDto>> getAdmins() {
 		return ResponseEntity.ok(adminService.getAdmins());
 	}
 
 	@GetMapping("admin/{adminId}")
-	@ApiOperation(value = "Returns Admin by forwarded ID", notes = "Id of the Admin is required.", response = AdminDto.class)
+	@ApiOperation(value = "Returns Admin by forwarded ID", notes = "Id of the Admin is required.", response = AdminDto.class, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdminDto> getAdminById(@PathVariable("adminId") Integer adminId) throws Exception {
 	
 		return ResponseEntity.ok(adminService.getAdminById(adminId));
 	}
 	
 	@GetMapping("admin/userName/{adminUserName}")
-	@ApiOperation(value = "Returns Admin by forwarded user name", notes = "User name of the Admin is required.",  response = AdminDto.class)
+	@ApiOperation(value = "Returns Admin by forwarded user name", notes = "User name of the Admin is required.",  response = AdminDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdminDto> getAdminByUserName(@PathVariable("adminUserName") String adminUserName) throws Exception {
 	
 		return ResponseEntity.ok(adminService.getAdminByAdminUserName(adminUserName));

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,35 +38,35 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	@GetMapping("order")
-    @ApiOperation(value = "Returns the list of all Orders", response = OrderDto.class)
+	@GetMapping("orders")
+    @ApiOperation(value = "Returns the list of all Orders", response = OrderDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrders() {
 		return ResponseEntity.ok(orderService.getOrders());
 	}
 
 	@GetMapping("order/{orderId}")
-	@ApiOperation(value = "Returns Order by forwarded ID", notes = "Id of the Order is required.", response = OrderDto.class)
+	@ApiOperation(value = "Returns Order by forwarded ID", notes = "Id of the Order is required.", response = OrderDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<OrderDto> getOrderById(@PathVariable("orderId") Integer orderId) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrderById(orderId));
 	}
 	
-	@GetMapping("order/city/{orderCity}")
-	@ApiOperation(value = "Return Order(s) by forwarded Order city", notes = "Name of the Order city is required.")
+	@GetMapping("orders/city/{orderCity}")
+	@ApiOperation(value = "Return Order(s) by forwarded Order city", notes = "Name of the Order city is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrdersByCity(@PathVariable("orderCity") String orderCity) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrdersByCity(orderCity));
 	}
 	
-	@GetMapping("order/paid/{orderPaid}")
-	@ApiOperation(value = "Return Order(s) based on whether orders are paid or not ", notes = "Value of Order paid is required.")
+	@GetMapping("orders/paid/{orderPaid}")
+	@ApiOperation(value = "Return Order(s) based on whether orders are paid or not ", notes = "Value of Order paid is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrdersByPaidOrNot(@PathVariable("orderPaid") Boolean orderPaid) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrdersByPaidOrNot(orderPaid));
 	}
 	
-	@GetMapping("order/payment/{paymentType}")
-	@ApiOperation(value = "Return Order(s) based on payment type", notes = "Payment type of Order is required.")
+	@GetMapping("orders/payment/{paymentType}")
+	@ApiOperation(value = "Return Order(s) based on payment type", notes = "Payment type of Order is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrdersByPaymentType(@PathVariable("paymentType") String paymentType) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrdersByPaymentType(paymentType));

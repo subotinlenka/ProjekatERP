@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,21 +37,21 @@ public class ProductCategoryController {
 		this.categoryService = categoryService;
 	}
 
-	@GetMapping("productCategory")
-    @ApiOperation(value = "Returns the list of all Product Categories", response = ProductCategoryDto.class)
+	@GetMapping("productCategories")
+    @ApiOperation(value = "Returns the list of all Product Categories", response = ProductCategoryDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductCategoryDto>> getProductCategories() {
 		return ResponseEntity.ok(categoryService.getProductCategories());
 	}
 
 	@GetMapping("productCategory/{productCategoryId}")
-	@ApiOperation(value = "Returns Product Category by forwarded ID", notes = "Id of the Product Category is required.", response = ProductCategoryDto.class)
+	@ApiOperation(value = "Returns Product Category by forwarded ID", notes = "Id of the Product Category is required.", response = ProductCategoryDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductCategoryDto> getProductCategoryById(@PathVariable("productCategoryId") Integer productCategoryId) throws Exception {
 	
 		return ResponseEntity.ok(categoryService.getProductCategoryById(productCategoryId));
 	}
 	
 	@GetMapping("productCategory/categoryName/{categoryName}")
-	@ApiOperation(value = "Returns Product Category by forwarded category name", notes = "Name of the Product Category is required.",  response = ProductCategoryDto.class)
+	@ApiOperation(value = "Returns Product Category by forwarded category name", notes = "Name of the Product Category is required.",  response = ProductCategoryDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductCategoryDto> getProductCategoryByName(@PathVariable("categoryName") String categoryName) throws Exception {
 	
 		return ResponseEntity.ok(categoryService.getProductCategoryByName(categoryName));

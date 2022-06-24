@@ -45,6 +45,16 @@ public class OrderServiceImplementation implements OrderService {
 	@Autowired
 	OrderItemRepository orderItemRepository;
 
+	public OrderServiceImplementation(ModelMapper modelMapper, OrderRepository orderRepository,
+			OrderStatusRepository statusRepository, CustomerRepository customerRepository,
+			OrderItemRepository orderItemRepository) {
+		this.modelMapper = modelMapper;
+		this.orderRepository = orderRepository;
+		this.statusRepository = statusRepository;
+		this.customerRepository = customerRepository;
+		this.orderItemRepository = orderItemRepository;
+	}
+
 	@Override
 	public List<OrderDto> getOrders() {
 		return orderRepository.findAll().stream().map(this::convertEntityToDto).collect(Collectors.toList());
@@ -145,12 +155,38 @@ public class OrderServiceImplementation implements OrderService {
 	     order.setOrderTotalAmount(totalAmount);
 	     OrderStatus status = statusRepository.findOrderStatusByName("In progress");
 	     order.setOrderStatus(status);
+	    
+	     /*
 	     if(orderCreateDto.getOrderPaid() == true) {
 	    	 order.setOrderPaymentType("CARD");
 	    	 order.setOrderPaymentDate(currentDate);
 	     }
 	     if(orderCreateDto.getOrderPaid() == false)
 	    	 order.setOrderPaymentType("CASH");
+	     
+	     order.setOrderAmount(orderCreateDto.getOrderAmount());
+	     
+	     Float deliveryFee = orderCreateDto.getOrderDeliveryFee();
+	     if(order.getOrderItems().size() < 3) {
+	    	deliveryFee = (float) 200;
+	    	order.setOrderDeliveryFee(deliveryFee);
+	    	Float orderTotalAmount = orderCreateDto.getOrderAmount() + deliveryFee;
+	    	order.setOrderTotalAmount(orderTotalAmount);
+	     }
+	     if(order.getOrderItems().size() == 3)
+	     {
+	    	deliveryFee = (float) 100;
+	    	order.setOrderDeliveryFee(deliveryFee);
+	    	Float orderTotalAmount = orderCreateDto.getOrderAmount() + deliveryFee;
+	    	order.setOrderTotalAmount(orderTotalAmount);
+	     }
+	     if(order.getOrderItems().size() > 3) 
+	     {
+	    	deliveryFee = (float) 0;
+	    	order.setOrderDeliveryFee(deliveryFee);
+	    	Float orderTotalAmount = orderCreateDto.getOrderAmount() + deliveryFee;
+	    	order.setOrderTotalAmount(orderTotalAmount);
+	     }*/
 	     
 	     orderRepository.save(order);
 		
@@ -185,14 +221,42 @@ public class OrderServiceImplementation implements OrderService {
 	    	 throw new BadRequestException("Order total amount must be greater than 0!");
 	     if(orderUpdateDto.getOrderAmount() > orderUpdateDto.getOrderTotalAmount())
 	    	 throw new BadRequestException("Order total amount must be greater than order amount!");
+	    
+	     LocalDate dateUpdate = LocalDate.now();
+	     Date currentDate = Date.valueOf(dateUpdate);
+	     if(orderUpdateDto.getOrderPaymentType() == "CARD") {
+	    	 order.setOrderPaid(true);
+	    	 order.setOrderPaymentDate(currentDate);
+	     }
+	     if(orderUpdateDto.getOrderPaymentType() == "CASH")
+	    	 order.setOrderPaid(false);
 
 	     order.setOrderAmount(orderUpdateDto.getOrderAmount());
-	     order.setOrderDeliveryFee(orderUpdateDto.getOrderDeliveryFee());
-	     order.setOrderTotalAmount(orderUpdateDto.getOrderTotalAmount());
 	     order.setOrderAddress(orderUpdateDto.getOrderAddress());
 	     order.setOrderCity(orderUpdateDto.getOrderCity());
 	     order.setOrderPaymentType(orderUpdateDto.getOrderPaymentType());
 	     
+	     Float deliveryFee = orderUpdateDto.getOrderDeliveryFee();
+	     if(order.getOrderItems().size() < 3) {
+	    	deliveryFee = (float) 200;
+	    	order.setOrderDeliveryFee(deliveryFee);
+	    	Float totalAmount = orderUpdateDto.getOrderAmount() + deliveryFee;
+	    	order.setOrderTotalAmount(totalAmount);
+	     }
+	     if(order.getOrderItems().size() == 3)
+	     {
+	    	deliveryFee = (float) 100;
+	    	order.setOrderDeliveryFee(deliveryFee);
+	    	Float totalAmount = orderUpdateDto.getOrderAmount() + deliveryFee;
+	    	order.setOrderTotalAmount(totalAmount);
+	     }
+	     if(order.getOrderItems().size() > 3) 
+	     {
+	    	deliveryFee = (float) 0;
+	    	order.setOrderDeliveryFee(deliveryFee);
+	    	Float totalAmount = orderUpdateDto.getOrderAmount() + deliveryFee;
+	    	order.setOrderTotalAmount(totalAmount);
+	     }
 	     orderRepository.save(order);
 	}
 

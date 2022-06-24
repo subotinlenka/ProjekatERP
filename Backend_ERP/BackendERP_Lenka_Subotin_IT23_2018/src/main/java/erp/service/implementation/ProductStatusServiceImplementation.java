@@ -26,6 +26,12 @@ public class ProductStatusServiceImplementation implements ProductStatusService 
 	@Autowired
 	private ProductStatusRepository productStatusRepository;
 	
+	
+	public ProductStatusServiceImplementation(ModelMapper modelMapper, ProductStatusRepository productStatusRepository) {
+		this.modelMapper = modelMapper;
+		this.productStatusRepository = productStatusRepository;
+	}
+
 	@Override
 	public List<ProductStatusDto> getProductStatuses() {
 		return productStatusRepository.findAll().stream().map(this::convertEntityToDto).collect(Collectors.toList());
