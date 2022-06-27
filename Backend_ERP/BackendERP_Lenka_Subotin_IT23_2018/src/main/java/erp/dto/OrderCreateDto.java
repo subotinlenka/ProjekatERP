@@ -64,9 +64,9 @@ public class OrderCreateDto {
 	@NotNull(message = "Order Status ID can not be null!")
 	private Integer orderStatusID;
 	
-	@ApiModelProperty(notes = "The customer ID related to the Order")
-	@NotNull(message = "Customer ID can not be null!")
-	private Integer customerID;
+	@ApiModelProperty(notes = "The user ID related to the Order")
+	@NotNull(message = "User ID can not be null!")
+	private Integer userID;
 	
 }
 

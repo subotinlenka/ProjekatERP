@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,7 @@ public class OrderItemController {
 	}
 	
 	@PostMapping("orderItem")
+	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
 	@ApiOperation(value = "Inserts Order Item in the database", notes = "Request body is required!")
 	public ResponseEntity<String> insertOrderItem(@Valid @RequestBody OrderItemCreateUpdateDto orderItemCreateDto) {
 
@@ -66,6 +68,7 @@ public class OrderItemController {
 	}
 	
 	@PutMapping("orderItem/{orderItemId}")
+	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
 	@ApiOperation(value = "Modifies existing Order Item with forwarded ID", notes = "Request body and Order Item Id are required!")
 	public ResponseEntity<String> updateOrderItem(@Valid @RequestBody OrderItemCreateUpdateDto orderItemUpdateDto, @PathVariable("orderItemId") Integer orderItemId) {
 		
@@ -74,6 +77,7 @@ public class OrderItemController {
 	}
 	
 	@DeleteMapping("orderItem/{orderItemId}")
+	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
 	@ApiOperation(value = "Deletes Order Item with forwarded ID", notes = "Id of the Order Item is required.")
 	public ResponseEntity<String> deleteOrderItem(@PathVariable("orderItemId") Integer orderItemId) throws Exception {
 		orderItemService.deleteOrderItem(orderItemId);

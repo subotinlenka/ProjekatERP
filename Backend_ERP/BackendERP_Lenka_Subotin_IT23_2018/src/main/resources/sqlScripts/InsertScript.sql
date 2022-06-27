@@ -1,7 +1,7 @@
-INSERT INTO Admins 
-VALUES (nextval('admins_seq'), 'Lenka', 'Subotin', '2000-01-28', '+38162494354', 'Milovana Glisica 3', 'Novi Sad', 'Serbia', 'subotinlenka@gmail.com', 'subotinlenka', 'lenkic2801');
-INSERT INTO Admins 
-VALUES (nextval('admins_seq'), 'Emilija', 'Subotin', '1996-03-02', '+38166552922', 'Gogoljeva 2', 'Novi Sad', 'Serbia', 'subotinemilija@gmail.com', 'emilijasubotin', 'ema020396');
+INSERT INTO Roles
+VALUES (nextval('roles_seq'), 'Admin');
+INSERT INTO Roles
+VALUES (nextval('roles_seq'), 'Customer');
 
 INSERT INTO ProductCategory
 VALUES (nextval('productCategory_seq'), 'Rackets');
@@ -29,17 +29,21 @@ INSERT INTO ProductManufacturer
 VALUES(nextval('productManufacturer_seq'), 'Head', '0113245619', 'Francuska 22', 'Belgrade', 'Serbia', 'headSerbia@yahoo.com');
 
 INSERT INTO Products
-VALUES(nextval('products_seq'), 'Speed Pro 2022 Tour Racket', 'HEAD Speed Pro 2022 Tour Racket, Head size: 645 cm x cm, String pattern: 18/20, Weight: 310g', '2', 1, 20000, 'https://tennisShop.com/images/headR1.jpg', false, null, 1, 1, 2, 1);
+VALUES(nextval('products_seq'), 'Speed Pro 2022 Tour Racket', 'HEAD Speed Pro 2022 Tour Racket, Head size: 645 cm x cm, String pattern: 18/20, Weight: 310g', '2', 1, 20000, 'https://tennisShop.com/images/headR1.jpg', false, null, 1, 1, 2);
 INSERT INTO Products
-VALUES(nextval('products_seq'), 'Clash Super Tour Racket Bag', 'Wilson Clash Super Tour Racket Bag 15 Pack - Red, Racket compartments: 3, Shoulder strap: 2, Length (mm): 737, Width (mm): 400, Height (mm): 330', null, 1, 12000, 'https://tennisShop.com/images/wilsonBag1.jpg', false, null, 2, 2, 1, 1);
+VALUES(nextval('products_seq'), 'Clash Super Tour Racket Bag', 'Wilson Clash Super Tour Racket Bag 15 Pack - Red, Racket compartments: 3, Shoulder strap: 2, Length (mm): 737, Width (mm): 400, Height (mm): 330', null, 1, 12000, 'https://tennisShop.com/images/wilsonBag1.jpg', false, null, 2, 2, 1);
 INSERT INTO Products
-VALUES(nextval('products_seq'), 'Tour Racket Bag', 'Wilson Tour Racket Bag - Black, Racket compartments: 2, Shoulder strap: 2', null, 1, 12500, 'https://tennisShop.com/images/wilsonBag2.jpg', false, null, 1, 2, 1, 2);
+VALUES(nextval('products_seq'), 'Tour Racket Bag', 'Wilson Tour Racket Bag - Black, Racket compartments: 2, Shoulder strap: 2', null, 1, 12500, 'https://tennisShop.com/images/wilsonBag2.jpg', false, null, 1, 2, 1);
 
 
-INSERT INTO Customers
-VALUES (nextval('customers_seq'), 'Anja', 'Delic', '2000-03-17', '0624532102', 'Petra Drapsina 2', 'Novi Sad', 'Serbia', 'anjadelic@gmail.com', 'delicanja', 'anja0317');
-INSERT INTO Customers
-VALUES (nextval('customers_seq'), 'Ksenija', 'Petrovic', '1999-02-16', '0631244787', 'Kotorska 7', 'Novi Sad', 'Serbia', 'ksenijap99@gmail.com', 'ksenijap99', 'ksenija0216');
+INSERT INTO Users
+VALUES (nextval('users_seq'), 'Anja', 'Delic', '2000-03-17', '0624532102', 'Petra Drapsina 2', 'Novi Sad', 'Serbia', 'anjadelic@gmail.com', 'delicanja', 'anja0317', 2);
+INSERT INTO Users
+VALUES (nextval('users_seq'), 'Ksenija', 'Petrovic', '1999-02-16', '0631244787', 'Kotorska 7', 'Novi Sad', 'Serbia', 'ksenijap99@gmail.com', 'ksenijap99', 'ksenija0216', 2);
+INSERT INTO Users 
+VALUES (nextval('users_seq'), 'Lenka', 'Subotin', '2000-01-28', '+38162494354', 'Milovana Glisica 3', 'Novi Sad', 'Serbia', 'subotinlenka@gmail.com', 'subotinlenka', 'lenkic2801', 1);
+INSERT INTO Users 
+VALUES (nextval('users_seq'), 'Emilija', 'Subotin', '1996-03-02', '+38166552922', 'Gogoljeva 2', 'Novi Sad', 'Serbia', 'subotinemilija@gmail.com', 'emilijasubotin', 'ema020396', 1);
 
 INSERT INTO OrderStatus
 VALUES(nextval('orderStatus_seq'), 'Delivered');

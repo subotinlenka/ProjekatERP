@@ -18,10 +18,10 @@ import erp.dto.OrderUpdateDto;
 import erp.exception.BadRequestException;
 import erp.exception.ConflictException;
 import erp.exception.NotFoundException;
-import erp.model.Customer;
+import erp.model.User;
 import erp.model.Order;
 import erp.model.OrderStatus;
-import erp.repository.CustomerRepository;
+import erp.repository.UserRepository;
 import erp.repository.OrderItemRepository;
 import erp.repository.OrderRepository;
 import erp.repository.OrderStatusRepository;
@@ -40,18 +40,18 @@ public class OrderServiceImplementation implements OrderService {
 	OrderStatusRepository statusRepository;
 	
 	@Autowired
-	CustomerRepository customerRepository;
+	UserRepository userRepository;
 	
 	@Autowired
 	OrderItemRepository orderItemRepository;
 
 	public OrderServiceImplementation(ModelMapper modelMapper, OrderRepository orderRepository,
-			OrderStatusRepository statusRepository, CustomerRepository customerRepository,
+			OrderStatusRepository statusRepository, UserRepository userRepository,
 			OrderItemRepository orderItemRepository) {
 		this.modelMapper = modelMapper;
 		this.orderRepository = orderRepository;
 		this.statusRepository = statusRepository;
-		this.customerRepository = customerRepository;
+		this.userRepository = userRepository;
 		this.orderItemRepository = orderItemRepository;
 	}
 
@@ -114,9 +114,9 @@ public class OrderServiceImplementation implements OrderService {
 	     if (orderStatus == null) {
              throw new BadRequestException("The inserted ID of Order Status does not exist!");
          }
-	     Customer customer = customerRepository.findCustomerById(orderCreateDto.getCustomerID());
-	     if (customer == null) {
-             throw new BadRequestException("The inserted ID of Customer does not exist!");
+	     User user = userRepository.findUserById(orderCreateDto.getUserID());
+	     if (user == null) {
+             throw new BadRequestException("The inserted ID of User does not exist!");
          } 
 	     if(orderCreateDto.getOrderDate() == null)
 	    	 throw new BadRequestException("Order date is required field!");
@@ -149,7 +149,7 @@ public class OrderServiceImplementation implements OrderService {
 	     Date currentDate = Date.valueOf(date);
 	     order.setOrderDate(currentDate);
 	     order.setOrderStatus(orderStatus);
-	     order.setCustomer(customer);
+	     order.setUser(user);
 	     
 	     Float totalAmount = orderCreateDto.getOrderAmount() + orderCreateDto.getOrderDeliveryFee();
 	     order.setOrderTotalAmount(totalAmount);

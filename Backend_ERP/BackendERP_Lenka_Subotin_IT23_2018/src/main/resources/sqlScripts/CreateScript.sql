@@ -1,37 +1,28 @@
-DROP TABLE IF EXISTS Admins CASCADE;
+DROP TABLE IF EXISTS Roles CASCADE;
 DROP TABLE IF EXISTS ProductCategory CASCADE;
 DROP TABLE IF EXISTS ProductStatus CASCADE;
 DROP TABLE IF EXISTS ProductManufacturer CASCADE;
 DROP TABLE IF EXISTS Products CASCADE;
-DROP TABLE IF EXISTS Customers CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS OrderStatus CASCADE;
 DROP TABLE IF EXISTS Orders CASCADE;
 DROP TABLE IF EXISTS OrderItem CASCADE;
 
-DROP SEQUENCE IF EXISTS admins_seq;
+DROP SEQUENCE IF EXISTS roles_seq;
 DROP SEQUENCE IF EXISTS productCategory_seq;
 DROP SEQUENCE IF EXISTS productStatus_seq;
 DROP SEQUENCE IF EXISTS productManufacturer_seq;
 DROP SEQUENCE IF EXISTS products_seq;
-DROP SEQUENCE IF EXISTS customers_seq;
+DROP SEQUENCE IF EXISTS users_seq;
 DROP SEQUENCE IF EXISTS orderStatus_seq;
 DROP SEQUENCE IF EXISTS orders_seq;
 DROP SEQUENCE IF EXISTS orderItem_seq;
 
+CREATE TABLE Roles(
+	roleID integer not null,
+	roleName varchar(30) not null,
+	CONSTRAINT pk_roles PRIMARY KEY(roleID)
 
-CREATE TABLE Admins(
-	adminID integer not null,
-	adminFirstName varchar(30) not null,
-	adminLastName varchar(30) not null,
-	adminDateofBirth date not null,
-	adminPhoneNumber varchar(25) null,
-	adminAddress varchar(30) not null,
-	adminCity varchar(25) not null,
-	adminCountry varchar(25) not null,
-	adminEmail varchar(30) not null,
-	adminUserName varchar(25) not null,
-	adminPassword varchar(25) not null,
-	CONSTRAINT pk_admins PRIMARY KEY(adminID)
 );
 
 CREATE TABLE ProductCategory(
@@ -70,27 +61,27 @@ CREATE TABLE Products(
 	productStatusID integer not null,
 	productCategoryID integer not null,
 	productManufacturerID integer not null,
-	adminID integer not null,
 	CONSTRAINT pk_products PRIMARY KEY(productID),
 	CONSTRAINT fk_productStatus_products FOREIGN KEY(productStatusID) REFERENCES ProductStatus(productStatusID),
 	CONSTRAINT fk_productCategory_products FOREIGN KEY(productCategoryID) REFERENCES ProductCategory(productCategoryID),
-	CONSTRAINT fk_productManufacturer_products FOREIGN KEY(productManufacturerID) REFERENCES ProductManufacturer(productManufacturerID),
-	CONSTRAINT fk_admins_products FOREIGN KEY(adminID) REFERENCES Admins(adminID) 
+	CONSTRAINT fk_productManufacturer_products FOREIGN KEY(productManufacturerID) REFERENCES ProductManufacturer(productManufacturerID)
 );
 
-CREATE TABLE Customers(
-	customerID integer not null,
-	customerFirstName varchar(30) not null,
-	customerLastName varchar(30) not null,
-	customerDateofBirth date not null,
-	customerPhoneNumber varchar(25) null,
-	customerAddress varchar(30) not null,
-	customerCity varchar(25) not null,
-	customerCountry varchar(25) not null,
-	customerEmail varchar(30) not null,
-	customerUserName varchar(25) not null,
-	customerPassword varchar(25) not null,
-	CONSTRAINT pk_customers PRIMARY KEY(customerID)
+CREATE TABLE Users(
+	userID integer not null,
+	userFirstName varchar(30) not null,
+	userLastName varchar(30) not null,
+	userDateofBirth date not null,
+	userPhoneNumber varchar(25) null,
+	userAddress varchar(30) not null,
+	userCity varchar(25) not null,
+	userCountry varchar(25) not null,
+	userEmail varchar(30) not null,
+	userUserName varchar(25) not null,
+	userPassword varchar(25) not null,
+	roleID integer not null,
+	CONSTRAINT pk_users PRIMARY KEY(userID),
+	CONSTRAINT fk_roles_users FOREIGN KEY(roleID) REFERENCES Roles(roleID)
 );
 
 CREATE TABLE OrderStatus(
@@ -111,10 +102,10 @@ CREATE TABLE Orders(
 	orderPaymentType varchar(20) not null,
 	orderPaymentDate date null CHECK(orderPaymentDate>=orderDate),
 	orderStatusID integer not null,
-	customerID integer not null,
+	userID integer not null,
 	CONSTRAINT pk_orders PRIMARY KEY(orderID),
 	CONSTRAINT fk_orderStatus_orders FOREIGN KEY(orderStatusID) REFERENCES OrderStatus(orderStatusID),
-	CONSTRAINT fk_customers_orders FOREIGN KEY(customerID) REFERENCES Customers(customerID)
+	CONSTRAINT fk_users_orders FOREIGN KEY(userID) REFERENCES Users(userID)
 );
 
 CREATE TABLE OrderItem(
@@ -128,13 +119,12 @@ CREATE TABLE OrderItem(
 	CONSTRAINT fk_orders_orderItem FOREIGN KEY(orderID) REFERENCES Orders(orderID) 
 );
 
-CREATE SEQUENCE admins_seq INCREMENT 1;
+CREATE SEQUENCE roles_seq INCREMENT 1;
 CREATE SEQUENCE productCategory_seq INCREMENT 1;
 CREATE SEQUENCE productStatus_seq INCREMENT 1;
 CREATE SEQUENCE productManufacturer_seq INCREMENT 1;
 CREATE SEQUENCE products_seq INCREMENT 1;
-CREATE SEQUENCE customers_seq INCREMENT 1;
+CREATE SEQUENCE users_seq INCREMENT 1;
 CREATE SEQUENCE orderStatus_seq INCREMENT 1;
 CREATE SEQUENCE orders_seq INCREMENT 1;
 CREATE SEQUENCE orderItem_seq INCREMENT 1;
-

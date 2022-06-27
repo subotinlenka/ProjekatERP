@@ -1,6 +1,5 @@
 package erp.dto;
 
-import erp.model.Admin;
 import erp.model.ProductCategory;
 import erp.model.ProductManufacturer;
 import erp.model.ProductStatus;
@@ -50,8 +49,5 @@ public class ProductDto {
 	
 	@ApiModelProperty(notes = "The Product manufacturer")
 	private ProductManufacturer productManufacturer;
-	
-	@ApiModelProperty(notes = "The admin who added a product")
-	private Admin admin;
 	
 }

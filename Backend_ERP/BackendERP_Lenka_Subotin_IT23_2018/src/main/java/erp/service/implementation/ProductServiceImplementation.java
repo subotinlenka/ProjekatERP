@@ -15,12 +15,10 @@ import erp.dto.ProductDto;
 import erp.exception.BadRequestException;
 import erp.exception.ConflictException;
 import erp.exception.NotFoundException;
-import erp.model.Admin;
 import erp.model.Product;
 import erp.model.ProductCategory;
 import erp.model.ProductManufacturer;
 import erp.model.ProductStatus;
-import erp.repository.AdminRepository;
 import erp.repository.ProductCategoryRepository;
 import erp.repository.ProductManufacturerRepository;
 import erp.repository.ProductRepository;
@@ -45,18 +43,14 @@ public class ProductServiceImplementation implements ProductService {
 	@Autowired
 	ProductManufacturerRepository manufacturerRepository;
 	
-	@Autowired
-	AdminRepository adminRepository;
-	
 	public ProductServiceImplementation(ModelMapper modelMapper, ProductRepository productRepository,
 			ProductStatusRepository statusRepository, ProductCategoryRepository categoryRepository,
-			ProductManufacturerRepository manufacturerRepository, AdminRepository adminRepository) {
+			ProductManufacturerRepository manufacturerRepository) {
 		this.modelMapper = modelMapper;
 		this.productRepository = productRepository;
 		this.statusRepository = statusRepository;
 		this.categoryRepository = categoryRepository;
 		this.manufacturerRepository = manufacturerRepository;
-		this.adminRepository = adminRepository;
 	}
 
 	@Override
@@ -127,10 +121,6 @@ public class ProductServiceImplementation implements ProductService {
 		    if (manufacturer == null) {
 	            throw new BadRequestException("The inserted ID of Product Manufacturer does not exist!");
 	        }
-		 Admin admin = adminRepository.findAdminById(productCreateDto.getAdminID());
-		    if (admin == null) {
-	            throw new BadRequestException("The inserted ID of Admin does not exist!");
-	        }
 
 	     if(productCreateDto.getProductPriceWithDiscount() == null)
 	    	 productCreateDto.setProductPriceWithDiscount(productCreateDto.getProductPrice());
@@ -152,8 +142,7 @@ public class ProductServiceImplementation implements ProductService {
 	     product.setProductCategory(productCategory);
 	     product.setProductManufacturer(manufacturer);
 	     product.setProductStatus(productStatus);
-	     product.setAdmin(admin);
-	     
+
 	     productRepository.save(product);
 	     
 	}
@@ -176,11 +165,7 @@ public class ProductServiceImplementation implements ProductService {
 	    if (manufacturer == null) {
             throw new BadRequestException("The inserted ID of Product Manufacturer does not exist!");
         }
-	    Admin admin = adminRepository.findAdminById(productCreateDto.getAdminID());
-	    if (admin == null) {
-            throw new BadRequestException("The inserted ID of Admin does not exist!");
-        }
-	    
+	   
 	     if(productCreateDto.getProductPriceWithDiscount() == null)
 	    	 productCreateDto.setProductPriceWithDiscount(productCreateDto.getProductPrice());
 	     if(productCreateDto.getProductName() == null)
@@ -209,8 +194,7 @@ public class ProductServiceImplementation implements ProductService {
 	     product.setProductCategory(productCategory);
 		 product.setProductManufacturer(manufacturer);
 		 product.setProductStatus(productStatus);
-		 product.setAdmin(admin);
-		     
+		
 		 productRepository.save(product);
 	}
 

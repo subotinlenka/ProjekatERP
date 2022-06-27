@@ -60,8 +60,4 @@ public class ProductCreateUpdateDto {
 	@NotNull(message = "Product Manufacturer ID can not be null!")
 	private Integer productManufacturerID;
 	
-	@ApiModelProperty(notes = "The admin who added a product ID related to the Product")
-	@NotNull(message = "Admin ID can not be null!")
-	private Integer adminID;
-	
 }

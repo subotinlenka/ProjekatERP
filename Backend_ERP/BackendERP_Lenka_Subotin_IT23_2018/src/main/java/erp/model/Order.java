@@ -77,10 +77,10 @@ public class Order implements Serializable {
 	@OneToMany(mappedBy="order", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
 	private List<OrderItem> orderItems;
 
-	//bi-directional many-to-one association to Customer
+	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="customerid")
-	private Customer customer;
+	@JoinColumn(name="userid")
+	private User user;
 
 	//bi-directional many-to-one association to OrderStatus
 	@ManyToOne
@@ -192,12 +192,12 @@ public class Order implements Serializable {
 		return orderItem;
 	}
 
-	public Customer getCustomer() {
-		return this.customer;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public OrderStatus getOrderStatus() {

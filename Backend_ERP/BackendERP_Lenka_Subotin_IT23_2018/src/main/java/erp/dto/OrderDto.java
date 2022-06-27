@@ -8,7 +8,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import erp.model.Customer;
+import erp.model.User;
 import erp.model.OrderStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -62,7 +62,7 @@ public class OrderDto {
 	private OrderStatus orderStatus;
 	
 	@ApiModelProperty(notes = "The customer whose Order is")
-	private Customer customer;
+	private User user;
 	
 	@ApiModelProperty(notes = "The order items")
 	private List<OrderItemWithoutOrderDto> orderItems;

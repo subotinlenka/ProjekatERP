@@ -68,11 +68,6 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy="product", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
 	private List<OrderItem> orderItems;
 
-	//bi-directional many-to-one association to Admin
-	@ManyToOne
-	@JoinColumn(name="adminid")
-	private Admin admin;
-
 	//bi-directional many-to-one association to ProductCategory
 	@ManyToOne
 	@JoinColumn(name="productcategoryid")
@@ -183,14 +178,6 @@ public class Product implements Serializable {
 		orderItem.setProduct(null);
 
 		return orderItem;
-	}
-
-	public Admin getAdmin() {
-		return this.admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
 	}
 
 	public ProductCategory getProductCategory() {

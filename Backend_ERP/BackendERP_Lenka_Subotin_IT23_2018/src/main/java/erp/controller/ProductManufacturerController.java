@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,7 @@ public class ProductManufacturerController {
 	}
 	
 	@PostMapping("productManufacturer")
+	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Inserts Product Manufacturer in the database", notes = "Request body is required!")
 	public ResponseEntity<String> insertProductManufacturer(@Valid @RequestBody ProductManufacturerCreateUpdateDto manufacturerCreateDto) {
 
@@ -66,6 +68,7 @@ public class ProductManufacturerController {
 	}
 	
 	@PutMapping("productManufacturer/{manufacturerId}")
+	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Modifies Product Manufacturer with forwarded ID", notes = "Request body and Product Manufacturer Id are required!")
 	public ResponseEntity<String> updateProductManufacturer(@Valid @RequestBody ProductManufacturerCreateUpdateDto manufacturerUpdateDto, @PathVariable("manufacturerId") Integer manufacturerId) {
 		
@@ -74,6 +77,7 @@ public class ProductManufacturerController {
 	}
 	
 	@DeleteMapping("productManufacturer/{manufacturerId}")
+	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Deletes Product Manufacturer with forwarded ID", notes = "Id of the Product Manufacturer is required.")
 	public ResponseEntity<String> deleteProductManufacturer(@PathVariable("manufacturerId") Integer manufacturerId) throws Exception {
 		
