@@ -78,7 +78,7 @@ CREATE TABLE Users(
 	userCountry varchar(25) not null,
 	userEmail varchar(30) not null,
 	userUserName varchar(25) not null,
-	userPassword varchar(25) not null,
+	userPassword varchar(60) not null,
 	roleID integer not null,
 	CONSTRAINT pk_users PRIMARY KEY(userID),
 	CONSTRAINT fk_roles_users FOREIGN KEY(roleID) REFERENCES Roles(roleID)

@@ -1,0 +1,88 @@
+.table {
+    width: 20cm;
+    height: 10cm;
+    margin-top:50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    text-align: center; 
+}
+
+.editList {
+    list-style: none;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.deleteList {
+    list-style: none;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.edit {
+    background-color:darkgoldenrod;
+    border: none;
+    color: white;
+    width: 80px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.delete {
+    background-color: #f1356d;
+    border: none;
+    color: white;
+    width: 80px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.add {
+    width: 200px;
+    height: 50px;
+    margin-top: 50px;
+    margin-right: 650px;
+    margin-left: 650px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+}
+
+.cancel {
+    background-color:mediumslateblue;
+    border: none;
+    color: white;
+    width: 80px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.reg {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.productCategoryName {
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.addBtn {
+    margin-left: 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    width: 80px;
+    height: 40px;
+}
+
+.modifyBtn {
+    margin-left: 10px;
+    margin-top: 15px;
+    background-color: darkgoldenrod;
+    border: none;
+    color: white;
+    width: 80px;
+    height: 40px;
+}

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,14 +51,12 @@ public class UserController {
 	}
 	
 	@GetMapping("admins")
-	@PreAuthorize("hasAuthority('Admin')")
     @ApiOperation(value = "Returns the list of all Admins", response = UserDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDto>> getAdmins() {
 		return ResponseEntity.ok(userService.getAdmins());
 	}
 
 	@GetMapping("user/{userId}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Returns User by forwarded ID", notes = "Id of the User is required.", response = UserDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDto> getUserById(@PathVariable("userId") Integer userId) throws Exception {
 	
@@ -67,15 +64,13 @@ public class UserController {
 	}
 	
 	@GetMapping("user/userName/{userName}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Returns User by forwarded user name", notes = "User name of the User is required.",  response = UserDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDto> getUserByUserName(@PathVariable("userUserName") String userUserName) throws Exception {
+	public ResponseEntity<UserDto> getUserByUserName(@PathVariable("userName") String userName) throws Exception {
 	
-		return ResponseEntity.ok(userService.getUserByUserName(userUserName));
+		return ResponseEntity.ok(userService.getUserByUserName(userName));
 	}
 	
 	@GetMapping("user/role/{roleId}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Returns User by forwarded Role ID", notes = "Role Id of the User is required.", response = UserDto.class,  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDto>> getUserByRoleId(@PathVariable("roleId") Integer roleId) throws Exception {
 	

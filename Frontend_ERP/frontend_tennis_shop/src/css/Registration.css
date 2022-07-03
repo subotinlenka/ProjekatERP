@@ -1,0 +1,30 @@
+.style {
+    color: #fff;
+    align-self: center;
+}
+
+.div-signUp{
+    width:400px;
+    height:550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 5vh;
+    background-color: #dc678a;
+} 
+
+.form-control {
+    width: 95%;
+    border: 1px solid #dbdbdb;
+    padding: 5px;
+    margin: 2px 0;
+    border-radius: 5px;
+    background-color: #fafafa;
+    box-shadow: none;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+

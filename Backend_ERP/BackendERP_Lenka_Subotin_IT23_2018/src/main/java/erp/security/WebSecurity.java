@@ -21,7 +21,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     private final TokenUtils tokenUtils;
     private final CustomUserDetailsImplementation jwtUserDetailsService;
-
+   
     public WebSecurity( RestAuthenticationEntryPoint restAuthenticationEntryPoint,TokenUtils tokenUtils, CustomUserDetailsImplementation jwtUserDetailsService ) {
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
         this.tokenUtils=tokenUtils;
@@ -39,7 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         return new BCryptPasswordEncoder();
     }
-
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

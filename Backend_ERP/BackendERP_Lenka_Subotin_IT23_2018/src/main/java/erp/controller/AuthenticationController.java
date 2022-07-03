@@ -3,8 +3,10 @@ package erp.controller;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +21,16 @@ import erp.service.implementation.UserServiceImplementation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin
 @RestController
-@Api(value = "Authentication endpoints.")
+@Api(tags = { "Authentication endpoints"})
 @RequestMapping("/auth")
 public class AuthenticationController {
 
 		private final AuthenticationService authenticationService;
 	    private final UserServiceImplementation userService;
+	    
+		private static final String SUCCESS = "Success!";
 
 	    public AuthenticationController(AuthenticationService authenticationService,UserServiceImplementation userService) {
 	        this.authenticationService = authenticationService;
@@ -33,26 +38,25 @@ public class AuthenticationController {
 	    }
 
 	    @PostMapping("/logIn")
-	    @ApiOperation(value = "User logging in.", response = UserDto.class
-	    )
+	    @ApiOperation(value = "User logging in.", response = UserDto.class, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<TokenState> createAuthenticationToken(@RequestBody AuthenticationRequest request) {
 	        return ResponseEntity.ok(authenticationService.createAuthenticationToken(request));
 	    }
 
 
-	    @PostMapping("/signIn")
-	    @ApiOperation(value = "New User signing up.")
-	    public ResponseEntity<UserDto> createCustomer(@Valid @RequestBody UserCreateUpdateDto userCreateDto) {
+	    @PostMapping("/signUp")
+	    @ApiOperation(value = "New User signing up.", produces = MediaType.APPLICATION_JSON_VALUE)
+	    public ResponseEntity<String> createCustomer(@Valid @RequestBody UserCreateUpdateDto userCreateDto) {
 	        userService.insertUser(userCreateDto, "Customer");
-	        return new ResponseEntity<>(HttpStatus.CREATED);
+	        return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	    }
 
 	    @PostMapping("/admin")
-	    @PreAuthorize("hasAuthority('Admin')")
-	    @ApiOperation(value = "New Admin signing up.")
-	    public ResponseEntity<UserCreateUpdateDto> createAdmin(@Valid @RequestBody UserCreateUpdateDto userCreateDto) {
+	   // @PreAuthorize("hasAuthority('Admin')")
+	    @ApiOperation(value = "New Admin signing up.", produces = MediaType.APPLICATION_JSON_VALUE)
+	    public ResponseEntity<String> createAdmin(@Valid @RequestBody UserCreateUpdateDto userCreateDto) {
 	        userService.insertUser(userCreateDto, "Admin");
-	        return new ResponseEntity<>(HttpStatus.CREATED);
+	        return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 
 	    }
 }

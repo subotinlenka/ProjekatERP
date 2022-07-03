@@ -67,7 +67,7 @@ public class UserCreateUpdateDto {
 	@NotNull(message = "User password is required field!")
 	private String userPassword;
 	
-	@ApiModelProperty(notes = "The Role ID related to the User")
+	/*@ApiModelProperty(notes = "The Role ID related to the User")
 	@NotNull(message = "Role ID can not be null!")
-	private Integer roleID;
+	private Integer roleID;*/
 }
