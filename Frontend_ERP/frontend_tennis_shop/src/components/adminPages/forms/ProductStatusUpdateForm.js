@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import '../css/Buttons.css';
 import Swal from "sweetalert2";
 
-export default function ProductCategoryUpdateForm(props) {
+export default function ProductStatusUpdateForm(props) {
     const initialFormData = Object.freeze({
-    productCategoryID: props.category.productCategoryID,
-    productCategoryName: props.category.productCategoryName,
+    productStatusID: props.status.productStatusID,
+    productStatusName: props.status.productStatusName
 });
 
 const [formData, setFormData] = useState(initialFormData);
@@ -18,20 +18,20 @@ const handleChange = (e) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const productCategoryUpdate = {
-        productCategoryID: props.category.productCategoryID,
-        productCategoryName: formData.productCategoryName
+    const productStatusUpdate = {
+        productStatusID: props.status.productStatusID,
+        productStatusName: formData.productStatusName
     };
 
-    if(formData.productCategoryName === "") {
+    if(formData.productStatusName === "") {
       Swal.fire({
           icon: 'warning',
-          text: 'Product Category name is required field and must be filled and must be filled!'
+          text: 'Product Status name is required field and must be filled and must be filled!'
       });
       return false;
     }
 
-    const url = "http://localhost:8085/productCategory" + "/" +  props.category.productCategoryID;
+    const url = "http://localhost:8085/productStatus" + "/" +  props.status.productStatusID;
     const token = localStorage.getItem("token");
     const bearerToken = "Bearer " + token;
 
@@ -41,7 +41,7 @@ const handleChange = (e) => {
         "Content-Type": "application/json",
         Authorization: bearerToken,
       },
-      body: JSON.stringify(productCategoryUpdate),
+      body: JSON.stringify(productStatusUpdate),
     })
       .then((responseFromServer) => {
         console.log(responseFromServer);
@@ -50,30 +50,30 @@ const handleChange = (e) => {
         console.log(error);
     });
 
-    props.onCategoryUpdated(productCategoryUpdate);
+    props.onStatusUpdated(productStatusUpdate);
   };
 
   return (
     <div className="reg">
-        <h3>Modifying the existing Product Category</h3>
+        <h3>Modifying the existing Product Status</h3>
             <input
                 type="text"
-                value={formData.productCategoryID} 
-                name="productCategoryID"
-                placeholder="Product category ID"
+                value={formData.productStatusID} 
+                name="productStatusID"
+                placeholder="Product status ID"
                 onChange={handleChange}
                 disabled
             />
             <input
                 type="text"
-                value={formData.productCategoryName}  
-                name="productCategoryName"
-                placeholder="Product category name"
+                value={formData.productStatusName}  
+                name="productStatusName"
+                placeholder="Product status name"
                 onChange={handleChange}
             />
             <button onClick={handleSubmit} className="modifyBtn">Modify</button>
                 <br />
-            <button onClick={() => props.onCategoryUpdated(null)} className="cancel"> Cancel</button>
+            <button onClick={() => props.onStatusUpdated(null)} className="cancel"> Cancel</button>
     </div>
   );
 }

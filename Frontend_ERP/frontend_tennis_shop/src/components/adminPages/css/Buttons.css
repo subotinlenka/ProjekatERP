@@ -48,6 +48,29 @@
     color: white;
 }
 
+.add1 {
+    width: 210px;
+    height: 50px;
+    margin-top: 50px;
+    margin-right: 680px;
+    margin-left: 680px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+}
+
+.add2 {
+    width: 230px;
+    height: 50px;
+    margin-top: 50px;
+    margin-right: 680px;
+    margin-left: 680px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+}
+
+
 .cancel {
     background-color:mediumslateblue;
     border: none;
@@ -63,6 +86,138 @@
 }
 
 .productCategoryName {
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.productStatusName {
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.orderStatusName {
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerID {
+
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerName {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerPhoneNumber {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerAddress {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerCity {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerCountry {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.manufacturerEmail {
+
+    margin-top: 25px;
+    margin-left: 0px;
+    width: 250px;
+    height:40px;
+}
+
+.userFirstName {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userLastName {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userDateOfBirth{
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userPhoneNumber {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userEmail {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userAddress {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userCity {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userCountry {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userUserName {
+
+    margin-top: 25px;
+    width: 250px;
+    height:40px;
+}
+
+.userPassword {
+
     margin-top: 25px;
     width: 250px;
     height:40px;
@@ -85,4 +240,21 @@
     color: white;
     width: 80px;
     height: 40px;
+}
+
+.table1 {
+    width: 35cm;
+    height: 8cm;
+    margin-top:50px;
+    margin-left: 0px;
+    text-align: left; 
+}
+
+.table2 {
+    width: 35cm;
+    height: 8cm;
+    margin-top:50px;
+    margin-right: 50px;
+    margin-left: -30px;
+    text-align: left; 
 }

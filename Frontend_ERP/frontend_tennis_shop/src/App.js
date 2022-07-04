@@ -5,9 +5,13 @@ import LogIn from './components/LogIn';
 import Registration from './components/Registration';
 import AdminPage from './components/AdminPage';
 import ProductCategory from './components/adminPages/ProductCategory'
+import ProductStatus from './components/adminPages/ProductStatus';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { role } from "./services/auth-service";
 import { React, useState, useEffect} from 'react';
+import ProductManufacturer from './components/adminPages/ProductManufacturer';
+import OrderStatus from './components/adminPages/OrderStatus';
+import Admin from './components/adminPages/Admin';
 
 
 function App() {
@@ -39,6 +43,10 @@ const getUserRole = () => {
           <Route key='/signUp' exact path="/signUp" element={<Registration/>}/>
           <Route key='/adminPage' exact path="/adminPage" element={<AdminPage/>}/>
           <Route key='/productCategory' exact path='/productCategory' element={<ProductCategory/>}/>
+          <Route key='/productStatus' exact path='productStatus' element={<ProductStatus/>}/>
+          <Route key='/productManufacturer' exact path='productManufacturer' element={<ProductManufacturer/>}/>
+          <Route key='/orderStatus' exact path='orderStatus' element={<OrderStatus/>}/>
+          <Route key='/admin' exact path='admin' element={<Admin/>}/>
         </Routes>
       </Router>
     </div>

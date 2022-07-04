@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,8 +58,8 @@ public class ProductCategoryController {
 		return ResponseEntity.ok(categoryService.getProductCategoryByName(categoryName));
 	}
 	
+	@Secured("Admin")
 	@PostMapping("productCategory")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Inserts Product Category in the database", notes = "Request body is required!")
 	public ResponseEntity<String> insertProductCategory(@Valid @RequestBody ProductCategoryCreateUpdateDto categoryCreateDto) {
 
@@ -67,8 +67,8 @@ public class ProductCategoryController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 	
+	@Secured("Admin")
 	@PutMapping("productCategory/{productCategoryId}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Modifies Product Category with forwarded ID", notes = "Request body and Product Category Id are required!")
 	public ResponseEntity<String> updateProductCategory(@Valid @RequestBody ProductCategoryCreateUpdateDto categoryUpdateDto, @PathVariable("productCategoryId") Integer productCategoryId) {
 		
@@ -76,8 +76,8 @@ public class ProductCategoryController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 	
+	@Secured("Admin")
 	@DeleteMapping("productCategory/{productCategoryId}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Deletes Product Category with forwarded ID", notes = "Id of the Product Category is required.")
 	public ResponseEntity<String> deleteProductCategory(@PathVariable("productCategoryId") Integer productCategoryId) throws Exception {
 		

@@ -63,13 +63,10 @@ const Navbar = () => {
                 {user === "Admin" && <a href="/orderStatus" className="orderStatus">Order Statuses</a>}
             </div>
             <div>
-                {user === "Admin" && <a href="/orderItem" className="orderItem">Order Items</a>}
-            </div>
-            <div>
                 {user === "Admin" && <a href="/order">Orders</a>}
             </div>
             <div>
-                {user === "Admin" && <a href="/users">Users</a>}
+                {user === "Admin" && <a href="/admin">Admins</a>}
             </div>
             <div>
                 {loged === true && <button onClick={() => logOut()} className="button">Log out</button>}

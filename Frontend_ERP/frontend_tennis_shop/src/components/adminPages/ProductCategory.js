@@ -9,11 +9,16 @@ function ProductCategory() {
   const [categoryCurrentlyUpdated, setCategoryBeingUpdated] = useState(null);
 
   const url = "http://localhost:8085/productCategories";
+  const token = localStorage.getItem("token");
+  const bearerToken = "Bearer " + token;
   const url_1 = "http://localhost:8085/productCategory";
 
   function getProductCategories() {
     fetch(url, {
       method: "GET",
+      headers: {
+        Authorization: bearerToken,
+      },
     })
       .then((response) => response.json())
       .then((categoriesFromServer) => {
@@ -29,6 +34,9 @@ function ProductCategory() {
     const deleteURL = url_1 + "/" + productCategoryID;
     fetch(deleteURL, {
       method: "DELETE",
+      headers: {
+        Authorization: bearerToken,
+      },
     })
       .then((response) => response.json())
       .then((responseFromServer) => {

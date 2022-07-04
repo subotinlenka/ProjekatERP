@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -72,8 +73,8 @@ public class ProductController {
 		return ResponseEntity.ok(productService.getProductsByManufacturer(manufacturerId));
 	}
 	
+	@Secured("Admin")
 	@PostMapping("product")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Inserts Product in the database", notes = "Request body is required!")
 	public ResponseEntity<String> insertProduct(@Valid @RequestBody ProductCreateUpdateDto productCreateDto) {
 
@@ -81,8 +82,8 @@ public class ProductController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 	
+	@Secured("Admin")
 	@PutMapping("product/{productId}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Modifies Product with forwarded ID", notes = "Request body and Product Id are required!")
 	public ResponseEntity<String> updateProduct(@Valid @RequestBody ProductCreateUpdateDto productCreateDto, @PathVariable("productId") Integer productId) {
 		
@@ -90,8 +91,8 @@ public class ProductController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 	
+	@Secured("Admin")
 	@DeleteMapping("product/{productId}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Deletes Product with forwarded ID", notes = "Id of the Product is required.")
 	public ResponseEntity<String> deleteProduct(@PathVariable("productId") Integer productId) throws Exception {
 		productService.deleteProduct(productId);

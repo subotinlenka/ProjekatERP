@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,32 +53,33 @@ public class OrderController {
 		return ResponseEntity.ok(orderService.getOrderById(orderId));
 	}
 	
+	@Secured("Admin")
 	@GetMapping("orders/city/{orderCity}")
-	@PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Return Order(s) by forwarded Order city", notes = "Name of the Order city is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrdersByCity(@PathVariable("orderCity") String orderCity) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrdersByCity(orderCity));
 	}
 	
+	@Secured("Admin")
 	@GetMapping("orders/paid/{orderPaid}")
-	 @PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Return Order(s) based on whether orders are paid or not ", notes = "Value of Order paid is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrdersByPaidOrNot(@PathVariable("orderPaid") Boolean orderPaid) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrdersByPaidOrNot(orderPaid));
 	}
 	
+	@Secured("Admin")
 	@GetMapping("orders/payment/{paymentType}")
-	 @PreAuthorize("hasAuthority('Admin')")
 	@ApiOperation(value = "Return Order(s) based on payment type", notes = "Payment type of Order is required.",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderDto>> getOrdersByPaymentType(@PathVariable("paymentType") String paymentType) throws Exception {
 	
 		return ResponseEntity.ok(orderService.getOrdersByPaymentType(paymentType));
 	}
 	
+	@Secured("Admin")
 	@PostMapping("order")
-	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
+	@PreAuthorize("hasRole('Customer')")
 	@ApiOperation(value = "Inserts Order in the database", notes = "Request body is required!")
 	public ResponseEntity<String> insertOrder(@Valid @RequestBody OrderCreateDto orderCreateDto) {
 
@@ -85,8 +87,9 @@ public class OrderController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 	
+	@Secured("Admin")
 	@PutMapping("order/{orderId}")
-	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
+	@PreAuthorize("hasRole('Customer')")
 	@ApiOperation(value = "Modifies existing Order with forwarded ID", notes = "Request body and Order Id are required!")
 	public ResponseEntity<String> updateOrder(@Valid @RequestBody OrderUpdateDto orderUpdateDto, @PathVariable("orderId") Integer orderId) {
 		
@@ -94,8 +97,9 @@ public class OrderController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 	
+	@Secured("Admin")
 	@DeleteMapping("order/{orderId}")
-	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
+	@PreAuthorize("hasRole('Customer')")
 	@ApiOperation(value = "Deletes Order with forwarded ID", notes = "Id of the Order is required.")
 	public ResponseEntity<String> deleteOrder(@PathVariable("orderId") Integer orderId) throws Exception {
 		orderService.deleteOrder(orderId);

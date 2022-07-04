@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import '../css/Buttons.css'
+import '../css/Buttons.css';
 import Swal from "sweetalert2";
 
-export default function CreateCategoryForm(props) {
+export default function CreateStatusForm(props) {
   const initialFormData = Object.freeze({
-    productCategoryName: ""
+    orderStatusName: ""
   });
 
   const [formData, setFormData] = useState(initialFormData);
@@ -17,19 +17,19 @@ export default function CreateCategoryForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const productCategoryCreate = {
-      productCategoryName: formData.productCategoryName
+    const orderStatusCreate = {
+        orderStatusName: formData.orderStatusName
     };
-     
-    if(formData.productCategoryName === "") {
+
+    if(formData.orderStatusName === "") {
       Swal.fire({
           icon: 'warning',
-          text: 'Product Category name is required field and must be filled and must be filled!'
+          text: 'Order Status name is required field and must be filled and must be filled!'
       });
       return false;
     }
 
-    const url = "http://localhost:8085/productCategory";
+    const url = "http://localhost:8085/orderStatus";
     const token = localStorage.getItem("token");
     const bearerToken = "Bearer " + token;
 
@@ -39,7 +39,7 @@ export default function CreateCategoryForm(props) {
         "Content-Type": "application/json",
         Authorization: bearerToken,
       },
-      body: JSON.stringify(productCategoryCreate),
+      body: JSON.stringify(orderStatusCreate),
     })
       .then((responseFromServer) => {
         console.log(responseFromServer);
@@ -48,25 +48,25 @@ export default function CreateCategoryForm(props) {
         console.log(error);
       });
 
-    props.onCategoryCreated(productCategoryCreate);
+    props.onStatusCreated(orderStatusCreate);
   };
 
   return (
     <div>
         <div className="reg">
-            <h3>Adding new Product Category</h3>
+            <h3>Adding new Order Status</h3>
                 <input
-                    value={formData.productCategoryName}
-                    name="productCategoryName"
+                    value={formData.orderStatusName}
+                    name="orderStatusName"
                     type="text"
-                    placeholder="Product category name"
+                    placeholder="Order status name"
                     onChange={handleChange}
-                    className="productCategoryName"
+                    className="orderStatusName"
                     disabled={false}>
                 </input>
             <button onClick={handleSubmit} className="addBtn">Add</button>
             <br/>
-            <button onClick={() => props.onCategoryCreated(null)} className="cancel"> Cancel</button>
+            <button onClick={() => props.onStatusCreated(null)} className="cancel"> Cancel</button>
         </div>
     </div>
   );
