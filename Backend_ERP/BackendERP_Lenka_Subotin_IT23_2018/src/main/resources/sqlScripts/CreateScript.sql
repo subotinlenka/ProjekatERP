@@ -61,6 +61,7 @@ CREATE TABLE Products(
 	productStatusID integer not null,
 	productCategoryID integer not null,
 	productManufacturerID integer not null,
+	priceStripe varchar(100) not null,
 	CONSTRAINT pk_products PRIMARY KEY(productID),
 	CONSTRAINT fk_productStatus_products FOREIGN KEY(productStatusID) REFERENCES ProductStatus(productStatusID),
 	CONSTRAINT fk_productCategory_products FOREIGN KEY(productCategoryID) REFERENCES ProductCategory(productCategoryID),

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import ProductsList from "./ProductsList";
+import "../css/Card.css";
 
 function Cart() {
   const [loading, setLoading] = useState(true);
@@ -64,8 +65,7 @@ const order = () => {
         "address" : orderAddress,
         "city" : orderCity,
         "paymentType" : orderPaymentType,
-        'items': orderItems,
-        //'userId':localStorage.getItem('userID'),
+        'items': orderItems
     };
     console.log(createOrder);
     axios.post('http://localhost:8085/order', createOrder).then(res => {
@@ -75,7 +75,7 @@ const order = () => {
             icon: 'success',
             text: "Creating order has been successfull!"
         });
-       // history('/payment');
+        
     }else{
         setIsPending(false);
         console.log(res.response.data.message);
@@ -95,33 +95,33 @@ const order = () => {
     }
     });;
 }
-    function showOrderForm()  {
-        
-        return (
-            <div className="div-signUp">
-            <h2 className='style'>Creating new order</h2>
-            <form style={{ maxWidth: "50%", margin: "auto"}}>
-                <div className="mb-3">
-                    <label className="form-label">Order address</label>
-                    <input value={orderAddress} onChange={(e) => setAddress(e.target.value)} required type="address" className="form-control" id="InputAddress" />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Order City</label>
-                    <input value={orderCity} onChange={(e) => setCity(e.target.value)} required type="city" className="form-control" id="InputCity" />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Order Payment Type</label>
-                    <input value={orderPaymentType} onChange={(e) => setPaymentType(e.target.value)} required type="paymentType" className="form-control" id="InputPaymentType" />
-                </div> 
-            </form>
-            </div>
-            );  
-    }
 
   return (
     <div className="col-12">
         {loading && <h3>Loading...</h3>}
         {!loading && products && <ProductsList products={products} orderDisplay={false} cartDisplay={true}/>}
+        <button onClick={() => 
+        
+        <div className="div-signUp">
+        <h2 className='style'>Creating new order</h2>
+        <form style={{ maxWidth: "50%", margin: "auto"}}>
+            <div className="mb-3">
+                <label className="form-label">Order address</label>
+                <input value={orderAddress} onChange={(e) => setAddress(e.target.value)} required type="address" className="form-control" id="InputAddress" />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Order City</label>
+                <input value={orderCity} onChange={(e) => setCity(e.target.value)} required type="city" className="form-control" id="InputCity" />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Order Payment Type</label>
+                <input value={orderPaymentType} onChange={(e) => setPaymentType(e.target.value)} required type="paymentType" className="form-control" id="InputPaymentType" />
+            </div> 
+        </form>
+        </div>
+}> 
+            </button>
+        
     </div>
   );
 }

@@ -14,6 +14,10 @@ import OrderStatus from './components/adminPages/OrderStatus';
 import Admin from './components/adminPages/Admin';
 import Products from './components/Products';
 import Cart from './components/Cart';
+import ProductAdmin from './components/adminPages/ProductsAdmin';
+import SuccessPayment from './components/SuccessPayment';
+import ErrorPayment from './components/ErrorPayment';
+
 
 function App() {
 
@@ -51,6 +55,9 @@ const getUserRole = () => {
           <Route key='/admin' exact path='/admin' element={<Admin/>}/>
           <Route key='/products' exact path='/products' element={<Products/>}/>
           <Route key='/cart' exact path='/cart' element={<Cart/>}/>
+          <Route key='/product' exact path='/product' element={<ProductAdmin/>}/>
+          <Route key='/success' exact path='/success' element={<SuccessPayment/>}/>
+          <Route key='/cancel' exact path='/cancel' element={<ErrorPayment/>}/>
         </Routes>
       </Router>
     </div>

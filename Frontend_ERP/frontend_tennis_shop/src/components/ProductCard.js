@@ -1,6 +1,6 @@
 import "../css/Card.css";
 import { useState, useEffect } from "react";
-import showOrderForm from './Cart';
+import { loadStripe } from "@stripe/stripe-js";
 
 const ProductCard = (props) => {
     const [quantity, setQuantity] = useState(1);
@@ -39,6 +39,36 @@ const ProductCard = (props) => {
             localStorage.setItem('cart', JSON.stringify(newCartItems));
         }
     }
+
+  let stripePromise;
+  const getStripe = () => {
+    if (!stripePromise) {
+      stripePromise = loadStripe(
+        "pk_test_51LIe4zJD4nanDPD0wOiNqBTKUOka4S2UFO1SWSd8rmxeAjuTtIcZIjOOUPnCQJH0RJnW0VREToeKvTPKSe26Ze6s00illOt7SY"
+      );
+    }
+    return stripePromise;
+  };
+
+  const item = {
+    price: product.priceStripe,
+    quantity: 1,
+  };
+
+  const checkuoutOptions = {
+    lineItems: [item],
+    mode: "payment",
+    successUrl: `${window.location.origin}/success`,
+    cancelUrl: `${window.location.origin}/cancel`,
+  };
+
+  const redirectToCheckout = async () => {
+    localStorage.setItem("productID", product.productID);
+    console.log("redirectToCheckout");
+    const stripe = await getStripe();
+    const { error } = await stripe.redirectToCheckout(checkuoutOptions);
+    console.log("Stripe checkout error", error);
+  };
 
     const changeQuantity = (value) => {
         setQuantity(value);
@@ -98,6 +128,7 @@ const ProductCard = (props) => {
                         props.allProducts && <>
                             <input type="number" onChange={(e) => setQuantity(e.target.value)} className="form-control" min={1} placeholder="Enter quantity" value={quantity} />
                             <button onClick={(e) => addToCart(product)} type="button" className="cartBtn">Add to cart</button>
+                            <button onClick={redirectToCheckout} className="payBtn">Pay product</button>
                         </>
                     }
                     <br/>
@@ -108,11 +139,6 @@ const ProductCard = (props) => {
                         </>
                     }
                     <br/>
-                    {
-                       props.cartDisplay && <>
-                            <button onClick={(e) => showOrderForm()} type="button" className="orderBtn">Create an Order</button>
-                        </>
-                    }
                 </div>
             }
         </li>

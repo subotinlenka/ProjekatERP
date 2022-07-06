@@ -11,9 +11,8 @@ const NavbarAdminPage = () => {
                 <a href="/productCategory">Product Categories</a>
                 <a href="/productManufacturer">Product Manufacturers</a>
                 <a href="/productStatus">Product Statuses</a>
-                <a href="/products">Products</a>
+                <a href="/product">Products</a>
                 <a href="/orderStatus">Order Statuses</a>
-                <a href="/order">Orders</a>
                 <a href="/admin">Admins</a>
             </div>
         </nav>

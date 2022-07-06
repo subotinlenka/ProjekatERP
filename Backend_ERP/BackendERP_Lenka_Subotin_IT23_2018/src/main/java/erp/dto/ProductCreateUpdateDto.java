@@ -60,4 +60,6 @@ public class ProductCreateUpdateDto {
 	@NotNull(message = "Product Manufacturer ID can not be null!")
 	private Integer productManufacturerID;
 	
+	private String priceStripe;
+	
 }

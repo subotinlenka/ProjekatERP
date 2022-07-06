@@ -231,6 +231,78 @@
     height:40px;
 }
 
+.productID {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productName1 {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productDescription {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productSize {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productQuantity {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productPrice {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productDiscount {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productImage {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productPriceWithDiscount {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productStatus {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+.productCategory {
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+.productManufacturer{
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
+
 .addBtn {
     margin-left: 10px;
     background-color: #4CAF50;
@@ -260,8 +332,8 @@
 }
 
 .table2 {
-    width: 35cm;
-    height: 8cm;
+    width: 34cm;
+    height: 10cm;
     margin-top:50px;
     margin-right: 50px;
     margin-left: -30px;
@@ -271,3 +343,4 @@
 .element {
     float: left;
 }
+

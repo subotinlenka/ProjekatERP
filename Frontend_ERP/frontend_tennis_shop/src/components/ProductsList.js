@@ -17,8 +17,11 @@ const ProductsList = (props) => {
                                 cartDisplay={props.cartDisplay}
                                 allProducts={props.allProducts}
                             />
+                             
                         );
-                    })}
+                    })
+                    
+                }
             </ul>
         </section>
     );

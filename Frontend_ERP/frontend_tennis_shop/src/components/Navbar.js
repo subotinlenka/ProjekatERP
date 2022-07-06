@@ -66,9 +66,6 @@ const Navbar = () => {
                 {user === "Admin" && <a href="/orderStatus" className="orderStatus">Order Statuses</a>}
             </div>
             <div>
-                {user === "Admin" && <a href="/order">Orders</a>}
-            </div>
-            <div>
                 {user === "Admin" && <a href="/admin">Admins</a>}
             </div>
             <div>

@@ -136,14 +136,15 @@ ul{
     margin-bottom: 10px;
 }
 
-.orderBtn {
-    background-color: #4CAF50;
+.payBtn {
+    background-color: #f1356d;
     border: none;
     color: white;
     display:inline-block;
     width: 80px;
     height: 40px;
-    margin-top: -20px;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-bottom: 10px;
+    align-content: center;
+    
 }

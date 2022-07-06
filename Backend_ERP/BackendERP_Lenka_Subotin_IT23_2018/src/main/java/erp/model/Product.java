@@ -62,6 +62,9 @@ public class Product implements Serializable {
 
 	@Column(name = "productsize")
 	private String productSize;
+	
+	@Column(name= "pricestripe")
+	private String priceStripe;
 
 	@JsonIgnore
 	//bi-directional many-to-one association to OrderItem
@@ -204,4 +207,11 @@ public class Product implements Serializable {
 		this.productStatus = productStatus;
 	}
 
+	public String getPriceStripe() {
+		return priceStripe;
+	}
+
+	public void setPriceStripe(String priceStripe) {
+		this.priceStripe = priceStripe;
+	}
 }

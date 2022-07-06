@@ -50,4 +50,6 @@ public class ProductDto {
 	@ApiModelProperty(notes = "The Product manufacturer")
 	private ProductManufacturer productManufacturer;
 	
+	private String priceStripe;
+	
 }
