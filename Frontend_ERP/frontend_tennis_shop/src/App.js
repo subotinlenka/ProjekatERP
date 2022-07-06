@@ -12,7 +12,8 @@ import { React, useState, useEffect} from 'react';
 import ProductManufacturer from './components/adminPages/ProductManufacturer';
 import OrderStatus from './components/adminPages/OrderStatus';
 import Admin from './components/adminPages/Admin';
-
+import Products from './components/Products';
+import Cart from './components/Cart';
 
 function App() {
 
@@ -36,17 +37,20 @@ const getUserRole = () => {
     <div>
       <Router>
       <Navbar/>
+      
       <Routes>
           <Route key='/' exact path="/" element={component}/>
-          <Route key='/home' exact path="home" element={<Home/>}/>
+          <Route key='/home' exact path="/home" element={<Home/>}/>
           <Route key='/logIn' exact path="/logIn" element={<LogIn/>}/>
           <Route key='/signUp' exact path="/signUp" element={<Registration/>}/>
           <Route key='/adminPage' exact path="/adminPage" element={<AdminPage/>}/>
           <Route key='/productCategory' exact path='/productCategory' element={<ProductCategory/>}/>
-          <Route key='/productStatus' exact path='productStatus' element={<ProductStatus/>}/>
-          <Route key='/productManufacturer' exact path='productManufacturer' element={<ProductManufacturer/>}/>
-          <Route key='/orderStatus' exact path='orderStatus' element={<OrderStatus/>}/>
-          <Route key='/admin' exact path='admin' element={<Admin/>}/>
+          <Route key='/productStatus' exact path='/productStatus' element={<ProductStatus/>}/>
+          <Route key='/productManufacturer' exact path='/productManufacturer' element={<ProductManufacturer/>}/>
+          <Route key='/orderStatus' exact path='/orderStatus' element={<OrderStatus/>}/>
+          <Route key='/admin' exact path='/admin' element={<Admin/>}/>
+          <Route key='/products' exact path='/products' element={<Products/>}/>
+          <Route key='/cart' exact path='/cart' element={<Cart/>}/>
         </Routes>
       </Router>
     </div>

@@ -18,9 +18,7 @@ import erp.dto.OrderUpdateDto;
 import erp.exception.BadRequestException;
 import erp.exception.ConflictException;
 import erp.exception.NotFoundException;
-import erp.model.User;
 import erp.model.Order;
-import erp.model.OrderStatus;
 import erp.repository.UserRepository;
 import erp.repository.OrderItemRepository;
 import erp.repository.OrderRepository;
@@ -110,51 +108,14 @@ public class OrderServiceImplementation implements OrderService {
 	public void insertOrder(OrderCreateDto orderCreateDto) {
 		
 		 Order order = convertCreateUpdateDtoToEntity(orderCreateDto);
-	     OrderStatus orderStatus = statusRepository.findOrderStatusById(orderCreateDto.getOrderStatusID());
-	     if (orderStatus == null) {
-             throw new BadRequestException("The inserted ID of Order Status does not exist!");
-         }
-	     User user = userRepository.findUserById(orderCreateDto.getUserID());
-	     if (user == null) {
-             throw new BadRequestException("The inserted ID of User does not exist!");
-         } 
-	     if(orderCreateDto.getOrderDate() == null)
-	    	 throw new BadRequestException("Order date is required field!");
-	     if(orderCreateDto.getOrderAmount() == null)
-	         throw new BadRequestException("Order amount is required field!");
-	     if(orderCreateDto.getOrderDeliveryFee() == null)
-	    	 throw new BadRequestException("Order delivery fee is required field!");
-	     if(orderCreateDto.getOrderTotalAmount() == null)
-	         throw new BadRequestException("Order total amount is required field!");
+	     
 	     if(orderCreateDto.getOrderAddress() == null)
 	         throw new BadRequestException("Order address is required field!");
 	     if(orderCreateDto.getOrderCity() == null)
 	         throw new BadRequestException("Order city is required field!");
-	     if(orderCreateDto.getOrderPaid() == null)
-	         throw new BadRequestException("Order paid is required field!");
+	    
 	     if(orderCreateDto.getOrderPaymentType() == null)
 	         throw new BadRequestException("Order payment type is required field!");
-	     if(orderCreateDto.getOrderAmount() <= 0)
-	    	 throw new BadRequestException("Order amount must be greater than 0!");
-	     if(orderCreateDto.getOrderDeliveryFee() < 0)
-	    	 throw new BadRequestException("Order delivery fee must be greater than 0!");
-	     if(orderCreateDto.getOrderTotalAmount() <= 0)
-	    	 throw new BadRequestException("Order total amount must be greater than 0!");
-	     if(orderCreateDto.getOrderPaymentDate().before(orderCreateDto.getOrderDate()))
-	    	 throw new BadRequestException("Order payment date must be same as order date or greater than order date!");
-	     if(orderCreateDto.getOrderAmount() > orderCreateDto.getOrderTotalAmount())
-	    	 throw new BadRequestException("Order total amount must be greater than order amount!");
-
-	     LocalDate date = LocalDate.now();
-	     Date currentDate = Date.valueOf(date);
-	     order.setOrderDate(currentDate);
-	     order.setOrderStatus(orderStatus);
-	     order.setUser(user);
-	     
-	     Float totalAmount = orderCreateDto.getOrderAmount() + orderCreateDto.getOrderDeliveryFee();
-	     order.setOrderTotalAmount(totalAmount);
-	     OrderStatus status = statusRepository.findOrderStatusByName("In progress");
-	     order.setOrderStatus(status);
 	    
 	     /*
 	     if(orderCreateDto.getOrderPaid() == true) {

@@ -114,6 +114,7 @@ function ProductCategory() {
                         </button>
                       </li>
                     </ul>
+                    <br/>
                     <ul className="deleteList">
                       <li>
                         <button

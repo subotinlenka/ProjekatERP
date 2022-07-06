@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +43,6 @@ public class AuthenticationController {
 	        return ResponseEntity.ok(authenticationService.createAuthenticationToken(request));
 	    }
 
-
 	    @PostMapping("/signUp")
 	    @ApiOperation(value = "New User signing up.", produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<String> createCustomer(@Valid @RequestBody UserCreateUpdateDto userCreateDto) {
@@ -51,8 +50,8 @@ public class AuthenticationController {
 	        return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	    }
 
+	    @Secured("Admin")
 	    @PostMapping("/admin")
-	   // @PreAuthorize("hasAuthority('Admin')")
 	    @ApiOperation(value = "New Admin signing up.", produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<String> createAdmin(@Valid @RequestBody UserCreateUpdateDto userCreateDto) {
 	        userService.insertUser(userCreateDto, "Admin");

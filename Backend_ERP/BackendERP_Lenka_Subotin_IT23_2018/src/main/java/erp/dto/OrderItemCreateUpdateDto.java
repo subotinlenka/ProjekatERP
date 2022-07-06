@@ -28,8 +28,8 @@ public class OrderItemCreateUpdateDto {
 	@NotNull(message = "Product ID can not be null!")
 	private Integer productID;
 	
-	@ApiModelProperty("The order ID to which the Order Item belongs")
-	@NotNull(message = "Order ID can not be null!")
-	private Integer orderID;
+	//@ApiModelProperty("The order ID to which the Order Item belongs")
+	//@NotNull(message = "Order ID can not be null!")
+	//private Integer orderID;
 
 }

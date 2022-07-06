@@ -80,13 +80,13 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		
 		OrderItem orderItem = convertCreateUpdateDtoToEntity(orderItemCreateDto);
 		Product product = productRepository.findProductById(orderItemCreateDto.getProductID());
-	    Order order = orderRepository.findOrderById(orderItemCreateDto.getOrderID());
+	    //Order order = orderRepository.findOrderById(orderItemCreateDto.getOrderID());
 		 if (product == null) {
 	        throw new BadRequestException("The inserted ID of Product does not exist!");
 	     }
-	     if (order == null) {
-            throw new BadRequestException("The inserted ID of Order does not exist!");
-	     } 
+	    // if (order == null) {
+        //    throw new BadRequestException("The inserted ID of Order does not exist!");
+	    // } 
 	     if(orderItemCreateDto.getOrderItemQuantity() == null)
 	    	 throw new BadRequestException("Order Item quantity is required field!");
 	     if(orderItemCreateDto.getOrderItemTotalPrice() == null)
@@ -97,7 +97,7 @@ public class OrderItemServiceImplementation implements OrderItemService {
 	    	 throw new BadRequestException("Order Item quantity must be greater than 0!");
 	    
 	     orderItem.setProduct(product);
-	     orderItem.setOrder(order);
+	     //orderItem.setOrder(order);
 	     
 	     Float orderItemTotalPrice = product.getProductPrice() * orderItemCreateDto.getOrderItemQuantity();
 	     orderItem.setOrderItemTotalPrice(orderItemTotalPrice);

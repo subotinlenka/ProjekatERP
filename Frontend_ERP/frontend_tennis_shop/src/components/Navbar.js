@@ -44,8 +44,11 @@ const Navbar = () => {
             <div className="signUp">
                 {loged !== true && <a href="/signUp">Sign Up</a>}
             </div>
-            <div className="chart">
-                {user === "Customer" && <a href="/chart">Shopping chart</a>}
+            <div className="product">
+                {user === "Customer" && <a href="/products">Products</a>}
+            </div>
+            <div className="cart">
+                {user === "Customer" && <a href="/cart">Shopping cart</a>}
             </div>
             <div>
                 {user === "Admin" && <a href="/productCategory" className="productCategory">Product Categories</a>}

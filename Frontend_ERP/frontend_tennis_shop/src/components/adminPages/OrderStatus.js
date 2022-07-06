@@ -114,6 +114,7 @@ function OrderStatus() {
                         </button>
                       </li>
                     </ul>
+                    <br/>
                     <ul className="deleteList">
                       <li>
                         <button

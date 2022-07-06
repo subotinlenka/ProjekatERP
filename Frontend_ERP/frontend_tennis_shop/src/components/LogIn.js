@@ -38,6 +38,7 @@ const LogIn = () => {
                 localStorage.setItem('accessToken', res.data.accessToken);
                 console.log(localStorage.getItem('accessToken'));
                 const token  = JSON.parse(atob( res.data.accessToken.split('.')[1])).sub;
+                localStorage.setItem('userID',res.data.id);
                 console.log(token);
                 history('/');
             } else {

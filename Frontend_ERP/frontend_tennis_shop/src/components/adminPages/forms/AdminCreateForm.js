@@ -137,8 +137,7 @@ export default function AdminCreateForm(props) {
         return false;
     }
 
-      
-    const url = "http://localhost:8085/user";
+    const url = "http://localhost:8085/auth/admin";
     const token = localStorage.getItem("token");
     const bearerToken = "Bearer " + token;
 
@@ -263,9 +262,9 @@ export default function AdminCreateForm(props) {
                     className="userPassword"
                     disabled={false}>
                 </input>
+            <br/> 
             <br/>
-            <br/>
-            <button onClick={() => props.onManufacturerCreated(null)} className="cancel"> Cancel</button>
+            <button onClick={() => props.onAdminCreated(null)} className="cancel"> Cancel</button>
             <button onClick={handleSubmit} className="addBtn">Add</button>
         </div>
     </div>

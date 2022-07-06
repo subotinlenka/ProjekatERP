@@ -182,7 +182,7 @@ const handleChange = (e) => {
             </input>
             <br/>
             <br/>
-            <button onClick={() => props.onCategoryUpdated(null)} className="cancel"> Cancel</button>
+            <button onClick={() => props.onManufacturerUpdated(null)} className="cancel"> Cancel</button>
             <button onClick={handleSubmit} className="modifyBtn">Modify</button>
     </div>
   );

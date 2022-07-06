@@ -129,6 +129,7 @@ function Admin() {
                         </button>
                       </li>
                     </ul>
+                    <br/>
                     <ul className="deleteList">
                       <li>
                         <button

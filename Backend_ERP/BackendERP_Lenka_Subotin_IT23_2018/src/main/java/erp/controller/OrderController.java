@@ -77,7 +77,6 @@ public class OrderController {
 		return ResponseEntity.ok(orderService.getOrdersByPaymentType(paymentType));
 	}
 	
-	@Secured("Admin")
 	@PostMapping("order")
 	@PreAuthorize("hasRole('Customer')")
 	@ApiOperation(value = "Inserts Order in the database", notes = "Request body is required!")
@@ -87,7 +86,6 @@ public class OrderController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 	}
 	
-	@Secured("Admin")
 	@PutMapping("order/{orderId}")
 	@PreAuthorize("hasRole('Customer')")
 	@ApiOperation(value = "Modifies existing Order with forwarded ID", notes = "Request body and Order Id are required!")

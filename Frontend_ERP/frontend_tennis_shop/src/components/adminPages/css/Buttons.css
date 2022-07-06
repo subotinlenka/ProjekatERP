@@ -31,6 +31,7 @@
 .delete {
     background-color: #f1356d;
     border: none;
+    margin-right: 0px;
     color: white;
     width: 80px;
     height: 40px;
@@ -153,6 +154,13 @@
     height:40px;
 }
 
+.userID {
+
+    margin-top: 10px;
+    width: 250px;
+    height:40px;
+}
+
 .userFirstName {
 
     margin-top: 25px;
@@ -237,6 +245,7 @@
     margin-top: 15px;
     background-color: darkgoldenrod;
     border: none;
+    align-content: center;
     color: white;
     width: 80px;
     height: 40px;
@@ -257,4 +266,8 @@
     margin-right: 50px;
     margin-left: -30px;
     text-align: left; 
+}
+
+.element {
+    float: left;
 }

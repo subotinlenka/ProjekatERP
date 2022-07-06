@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,8 +77,8 @@ public class UserController {
 		return ResponseEntity.ok(userService.getUserByRoleId(roleId));
 	}
 	
+	@Secured({"Admin", "Customer"})
 	@PutMapping("user/{userId}")
-	@PreAuthorize("hasAuthority('Admin') or hasRole('Customer')")
 	@ApiOperation(value = "Modifies User with forwarded ID", notes = "Request body and User Id are required!")
 	public ResponseEntity<String> updateUser(@Valid @RequestBody UserCreateUpdateDto userUpdateDto, @PathVariable("userId") Integer userId) {
 		

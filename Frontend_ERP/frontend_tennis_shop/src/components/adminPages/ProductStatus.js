@@ -114,6 +114,7 @@ function ProductStatus() {
                         </button>
                       </li>
                     </ul>
+                    <br/>
                     <ul className="deleteList">
                       <li>
                         <button
